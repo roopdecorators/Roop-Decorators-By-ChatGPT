@@ -321,6 +321,68 @@ body { font-family: 'Nunito', sans-serif; background: var(--cr); color: var(--tx
 .cev-amts { display: flex; gap: 12px; margin-top: 7px; font-size: 0.7rem; }
 .cev-amts b { display: block; font-size: 0.8rem; }
 
+/* Compact calendar preview, line by line:
+   1) Date · Program · Persons   2) Day · Customer Name   3) Time Slot · Place   4) Notes */
+.cal-event-card.cal-compact { padding: 6px 8px; margin-bottom: 5px; border-radius: 8px; border-left-width: 3px; }
+.cev-grid3 { display: grid; grid-template-columns: max-content minmax(0, 1fr) max-content; gap: 1px 10px; font-size: 0.66rem; line-height: 1.3; color: var(--tx); align-content: start; }
+.cev-grid3 > div { min-width: 0; }
+.cev-grid3 > div:nth-child(3n+1), .cev-grid3 > div:nth-child(3n) { white-space: nowrap; }
+.cev-grid3 > div:nth-child(3n+2) { white-space: normal; word-break: break-word; line-height: 1.2; }
+.cev-grid3 .cg-date, .cev-grid3 .cg-cust { font-weight: 800; color: var(--m); }
+.cev-notes { margin-top: 3px; padding-top: 3px; border-top: 1px dashed #dcc7a6; font-size: 0.64rem; line-height: 1.25; color: var(--tm); font-style: italic; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; word-break: break-word; }
+/* Program-specific calendar preview colours (status remains indicated by its small icon). */
+.cal-event-card.prog-haldi { background:#fff6c9; border-left-color:#e4b900; }
+.cal-event-card.prog-nikah { background:#ffe2e2; border-left-color:#c62828; }
+.cal-event-card.prog-valima { background:#e1efff; border-left-color:#1976d2; }
+.cal-event-card.prog-engagement { background:#fff0c2; border-left-color:#c18a00; }
+.cal-event-card.prog-akikah { background:#e5e5e5; border-left-color:#222; }
+.cal-event-card.prog-gyarvi { background:#e5f2d8; border-left-color:#78a84b; }
+.cal-event-card.prog-upghatan { background:#ffe6cc; border-left-color:#ed7d18; }
+.cal-event-card.prog-birthday { background:#ffe3ef; border-left-color:#e66a9b; }
+.cal-event-card[class*="prog-"] .cev-grid3 { color:#29231d; }
+/* Calendar > Orders preview: make every detail bold, high-contrast and easy to read. */
+#cal-month-orders-list .cal-event-card {
+  color: #211b16;
+  padding: 9px 11px;
+}
+#cal-month-orders-list .cal-event-card .cev-grid3 {
+  font-size: 0.76rem;
+  line-height: 1.45;
+  font-weight: 800;
+  color: #211b16;
+  column-gap: 9px;
+  row-gap: 3px;
+}
+#cal-month-orders-list .cal-event-card .cev-grid3 > div { font-weight: 800; }
+#cal-month-orders-list .cal-event-card .cev-grid3 .cg-date,
+#cal-month-orders-list .cal-event-card .cev-grid3 .cg-cust {
+  font-weight: 900;
+  color: #17120e;
+}
+#cal-month-orders-list .cal-event-card .cev-notes {
+  font-size: 0.73rem;
+  line-height: 1.4;
+  font-weight: 800;
+  font-style: normal;
+  color: #30251d;
+  -webkit-line-clamp: 3;
+}
+#cal-month-orders-list .cal-date-separator,
+#cal-month-orders-list .cal-date-separator span {
+  font-size: 0.8rem;
+  font-weight: 900;
+  color: #211b16;
+}
+/* Date separators in the Calendar > Orders preview. */
+.cal-date-separator { display:flex; align-items:center; gap:9px; margin:11px 2px 7px; color:var(--tx, #3b3028); font-size:0.74rem; font-weight:900; letter-spacing:.025em; }
+.cal-date-separator span { font-weight:900; }
+.cal-date-separator::before, .cal-date-separator::after { content:''; flex:1; height:2px; background:var(--tm, #8a6b55); }
+.cal-date-separator:first-child { margin-top:2px; }
+.orders-pdf-tools { margin:12px 0; }
+.orders-pdf-tools .fr { margin-bottom:8px; }
+
+.cal-sort-lbl { font-size: 0.68rem; color: var(--tm); font-weight: 700; align-self: center; flex-shrink: 0; }
+
 /* ── CUSTOMER MANAGEMENT ──────────────────────────────────── */
 .cust-suggest { position: absolute; top: 100%; left: 0; right: 0; background: #fff; border-radius: 10px; box-shadow: var(--sh); z-index: 50; margin-top: 4px; max-height: 220px; overflow-y: auto; }
 .cust-suggest-item { padding: 9px 12px; border-bottom: 1px solid var(--crd); display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
@@ -433,6 +495,10 @@ body { font-family: 'Nunito', sans-serif; background: var(--cr); color: var(--tx
 
 <!-- NEW ESTIMATE -->
 <div class="pg" id="pg-new">
+
+  <div class="brow nop" style="margin-bottom:10px">
+    <button class="btn bo bf" type="button" onclick="backToPg('pg-dashboard')">← Back</button>
+  </div>
 
   <div class="edit-banner" id="edit-banner" style="display:none">
     <span>✏️ Editing: <strong id="eb-name"></strong><span class="eno" id="eb-no"></span></span>
@@ -621,7 +687,7 @@ body { font-family: 'Nunito', sans-serif; background: var(--cr); color: var(--tx
 
 <!-- SETTINGS -->
 <div class="pg" id="pg-set">
-  <button class="btn bo" onclick="showPg('pg-more')">← Back to Settings Menu</button>
+  <button class="btn bo" onclick="backToPg('pg-more')">← Back to Settings Menu</button>
 
   <div class="card" id="set-sec-business" style="margin-top:12px">
     <div class="ch">🏢 Business Info</div>
@@ -683,7 +749,7 @@ body { font-family: 'Nunito', sans-serif; background: var(--cr); color: var(--tx
 
 <!-- ITEM CATALOG MANAGEMENT -->
 <div class="pg" id="pg-item-catalog">
-  <button class="btn bo" onclick="showPg('pg-more')">← Back to Settings</button>
+  <button class="btn bo" onclick="backToPg('pg-more')">← Back to Settings</button>
   <div style="font-size:0.72rem;color:var(--tm);margin:10px 0">▲▼ થી category order અને item order બદલો, અને rate સીધું edit કરો. આ ફેરફારો ફક્ત નવા ઉમેરાતા items ને લાગુ પડશે — already-saved estimates ના rates યથાવત રહેશે.</div>
 
   <button class="btn bg" style="width:100%;margin-bottom:9px" onclick="saveAllCatalogChanges()">💾 Save Changes</button>
@@ -720,7 +786,7 @@ body { font-family: 'Nunito', sans-serif; background: var(--cr); color: var(--tx
 <div class="pg" id="pg-print">
   <div id="pcont"></div>
   <div class="brow nop">
-    <button class="btn bo" onclick="showPg('pg-new')">← Back</button>
+    <button class="btn bo" onclick="backToPg('pg-new')">← Back</button>
     <button class="btn bm" onclick="downloadPDF()">⬇️ PDF</button>
   </div>
   <div class="brow nop" style="margin-top:9px">
@@ -742,7 +808,7 @@ body { font-family: 'Nunito', sans-serif; background: var(--cr); color: var(--tx
     </div>
   </div>
   <div id="tmpl-list-cont"></div>
-  <div class="brow nop"><button class="btn bo bf" onclick="showPg('pg-new')">← Back</button></div>
+  <div class="brow nop"><button class="btn bo bf" onclick="backToPg('pg-new')">← Back</button></div>
 </div>
 
 <!-- TEMPLATE EDITOR -->
@@ -773,7 +839,7 @@ body { font-family: 'Nunito', sans-serif; background: var(--cr); color: var(--tx
   </div>
   <div class="brow">
     <button class="btn bg" onclick="saveTemplate()">💾 Save Template</button>
-    <button class="btn bo" onclick="showPg('pg-tmpl-list')">← Cancel</button>
+    <button class="btn bo" onclick="backToPg('pg-tmpl-list')">← Cancel</button>
   </div>
 </div>
 
@@ -782,6 +848,7 @@ body { font-family: 'Nunito', sans-serif; background: var(--cr); color: var(--tx
   <div class="sb"><span class="si">🔍</span>
     <input type="text" id="cust-srch" placeholder="Search name or mobile..." oninput="renderCustomers()">
   </div>
+  <div style="display:flex;gap:8px;margin-top:9px"><button class="btn bo" style="flex:1" onclick="exportExcelWorkbook()">📊 Export Excel</button><button class="btn bo" style="flex:1" onclick="exportBackup()">💾 Backup</button></div>
   <div class="filter-chips" id="cust-pay-filters" style="margin-top:10px">
     <button class="chip" data-pf="all" onclick="setCustPayFilter('all')">All</button>
     <button class="chip on" data-pf="due" onclick="setCustPayFilter('due')">⚠️ Due</button>
@@ -792,7 +859,7 @@ body { font-family: 'Nunito', sans-serif; background: var(--cr); color: var(--tx
 
 <!-- CUSTOMER DETAIL -->
 <div class="pg" id="pg-customer-detail">
-  <button class="btn bo" onclick="showPg('pg-customers')">← Back to Customers</button>
+  <button class="btn bo" onclick="backToPg('pg-customers')">← Back to Customers</button>
   <div class="card" style="margin-top:12px">
     <div class="ch">👤 Customer Information</div>
     <div class="cb">
@@ -807,12 +874,16 @@ body { font-family: 'Nunito', sans-serif; background: var(--cr); color: var(--tx
         <button class="btn bo" style="flex:1" onclick="openCustEditForm()">✏️ Edit Details</button>
         <button class="btn bo" style="flex:1" id="cd-archive-btn" onclick="archiveOrDeleteCustomer()">🗄️ Archive Customer</button>
       </div>
+      <button class="btn bg" style="width:100%;margin-top:8px" onclick="startRelatedProgram()">➕ Add Another Program to This Booking</button>
       <div class="pmt-form" id="cust-edit-form" style="display:none">
         <div class="fr full"><div class="fg"><label class="fl">Name</label><input class="fi" id="ce-name" type="text"></div></div>
         <div class="fr">
           <div class="fg"><label class="fl">Mobile</label><input class="fi" id="ce-mobile" type="tel"></div>
-          <div class="fg"><label class="fl">Address</label><input class="fi" id="ce-address" type="text"></div>
+          <div class="fg"><label class="fl">Other Mobile Numbers</label><input class="fi" id="ce-mobiles" type="text" placeholder="Comma separated"></div>
         </div>
+        <div class="fr full"><div class="fg"><label class="fl">Address</label><textarea class="fi" id="ce-address" rows="2"></textarea></div></div>
+        <div class="fr full"><div class="fg"><label class="fl">Other Addresses</label><textarea class="fi" id="ce-addresses" rows="2" placeholder="One address per line"></textarea></div></div>
+        <div class="fr full"><div class="fg"><label class="fl">Customer Preferences / Notes</label><textarea class="fi" id="ce-preferences" rows="2" placeholder="Decoration style, colour choices, special requirements..."></textarea></div></div>
         <div style="display:flex;gap:8px;margin-top:6px">
           <button class="btn bg" style="flex:1" onclick="saveCustEdit()">💾 Save</button>
           <button class="btn bo" style="flex:1" onclick="closeCustEditForm()">Cancel</button>
@@ -833,6 +904,8 @@ body { font-family: 'Nunito', sans-serif; background: var(--cr); color: var(--tx
 
   <div class="sec-title">Booking History</div>
   <div id="cd-history"></div>
+  <div class="sec-title">Payment Transaction History</div>
+  <div id="cd-transactions"></div>
 </div>
 
 
@@ -876,11 +949,32 @@ body { font-family: 'Nunito', sans-serif; background: var(--cr); color: var(--tx
 
   <div class="card" id="cal-day-panel" style="margin-top:14px"></div>
 
-  <div class="sec-title" style="margin-top:18px" id="cal-month-estimates-title">📝 Estimates</div>
+  <div class="filter-chips" id="cal-sort-chips" style="margin-top:16px;margin-bottom:0">
+    <span class="cal-sort-lbl">Sort:</span>
+    <button class="chip on" data-cs="date" onclick="setCalSort('date')">📅 Date</button>
+    <button class="chip" data-cs="name" onclick="setCalSort('name')">👤 Customer Name</button>
+  </div>
+
+  <div class="sec-title" style="margin-top:12px" id="cal-month-estimates-title">📝 Estimates</div>
   <div id="cal-month-estimates-list"></div>
 
   <div class="sec-title" id="cal-month-orders-title">📦 Orders</div>
   <div id="cal-month-orders-list"></div>
+
+  <div class="card orders-pdf-tools">
+    <div class="ch">⬇️ Download Orders PDF</div>
+    <div class="cb">
+      <div class="fr">
+        <div class="fg"><label class="fl">From Date</label><input class="fi" id="orders-pdf-from" type="date"></div>
+        <div class="fg"><label class="fl">To Date</label><input class="fi" id="orders-pdf-to" type="date"></div>
+      </div>
+      <div class="fg" style="margin-bottom:10px"><label class="fl">Arrange Orders By</label>
+        <select class="fs" id="orders-pdf-sort"><option value="date">Date</option><option value="name">Customer Name</option></select>
+      </div>
+      <button class="btn bm" style="width:100%" onclick="downloadOrdersPDF()">⬇️ Download / Print Orders PDF</button>
+      <div style="font-size:.65rem;color:var(--tm);margin-top:7px">A4 size · Confirmed orders only · Choose Save as PDF in the print screen</div>
+    </div>
+  </div>
 
   <div class="sec-title" id="cal-month-invoices-title">🧾 Invoices</div>
   <div id="cal-month-invoices-list"></div>
@@ -1029,7 +1123,7 @@ const BASE = [
 const BASE_DEFAULT = BASE.map(b => ({ n: b.n, p: b.p, c: b.c }));
 (function applyItemCatalogOverride() {
   try {
-    const saved = JSON.parse(localStorage.getItem('roop_item_catalog') || 'null');
+    const saved = readStore('roop_item_catalog', null);
     if (!Array.isArray(saved) || saved.length !== BASE.length) return;
     const byName = {};
     BASE.forEach(b => { byName[b.n] = b; });
@@ -1055,6 +1149,24 @@ function catSlug(catName) {
 
 function esc(s) {
   return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// Defensive JSON reads: a damaged/partial browser-storage value should not
+// crash the entire app during startup or when opening a feature. This does
+// not overwrite or delete the original stored value.
+function readStore(key, fallback) {
+  try {
+    const raw = localStorage.getItem(key);
+    if (raw === null || raw === '') return fallback;
+    const value = JSON.parse(raw);
+    if (Array.isArray(fallback) && !Array.isArray(value)) return fallback;
+    if (fallback && typeof fallback === 'object' && !Array.isArray(fallback) &&
+        (value === null || typeof value !== 'object' || Array.isArray(value))) return fallback;
+    return value == null ? fallback : value;
+  } catch (e) {
+    console.warn('Could not read saved app data:', key, e);
+    return fallback;
+  }
 }
 
 function fresh() {
@@ -1101,10 +1213,18 @@ function itemsMatchDefaultCatalog(arr) {
   return arr.every((it, i) => it.name === BASE[i].n);
 }
 
-// ── PAGES ──────────────────────────────────────────────────
-function showPg(id, fromPopState) {
+// ── PAGES / NAVIGATION ─────────────────────────────────────
+let currentPageId = 'pg-dashboard';
+function isValidPage(id) {
+  return typeof id === 'string' && !!document.getElementById(id) && document.getElementById(id).classList.contains('pg');
+}
+function showPg(id, fromPopState, replaceCurrent) {
+  if (!isValidPage(id)) id = 'pg-dashboard';
+  const previousPageId = currentPageId;
+  const samePage = previousPageId === id;
   document.querySelectorAll('.pg').forEach(p => p.classList.remove('on'));
   document.getElementById(id).classList.add('on');
+  currentPageId = id;
   document.querySelectorAll('.nb').forEach(b => b.classList.remove('on'));
   if (id === 'pg-dashboard') { document.getElementById('nb-home').classList.add('on'); renderDashboard(); }
   if (id === 'pg-new')  {
@@ -1130,12 +1250,33 @@ function showPg(id, fromPopState) {
   // entry; the popstate listener below pops it and re-shows that screen
   // without pushing again (fromPopState guards against a loop).
   if (!fromPopState) {
-    try { history.pushState({ page: id }, '', '#' + id); } catch (e) { /* ignore */ }
+    try {
+      if (replaceCurrent) history.replaceState({ page: id, prevPage: null }, '', '#' + id);
+      else if (!samePage) history.pushState({ page: id, prevPage: previousPageId }, '', '#' + id);
+    } catch (e) { /* History API can be unavailable in file previews. */ }
   }
 }
 
+// Use this for visible in-app Back/Cancel navigation. It consumes the
+// previous app history entry when it matches the intended destination;
+// otherwise it safely replaces the current entry instead of creating a
+// history loop that sends the user forward to the screen they just left.
+function backToPg(fallbackId) {
+  const target = isValidPage(fallbackId) ? fallbackId : 'pg-dashboard';
+  const previous = history.state && history.state.prevPage;
+  if (previous === target) {
+    history.back();
+    return;
+  }
+  showPg(target, false, true);
+}
+
 window.addEventListener('popstate', function (ev) {
-  const page = (ev.state && ev.state.page) || 'pg-dashboard';
+  let page = ev.state && ev.state.page;
+  if (!isValidPage(page)) {
+    const hashPage = (location.hash || '').replace(/^#/, '');
+    page = isValidPage(hashPage) ? hashPage : 'pg-dashboard';
+  }
   showPg(page, true);
 });
 
@@ -1301,7 +1442,7 @@ function updateTplBanner() {
 function populateTplQuickSwitch() {
   const sel = document.getElementById('tpl-quickswitch');
   if (!sel) return;
-  const list = JSON.parse(localStorage.getItem('roop_templates') || '[]');
+  const list = readStore('roop_templates', []);
   let html = '<option value="">📋 Full Catalog</option>';
   list.forEach(t => {
     html += '<option value="' + t.id + '"' + (activeTemplateId === t.id ? ' selected' : '') + '>📑 ' + esc(t.name) + '</option>';
@@ -1460,6 +1601,7 @@ function showEditBanner(est) {
 }
 
 // ── SAVE ESTIMATE ──────────────────────────────────────────
+let currentBookingGroupId = null;
 function saveEst() {
   const name = document.getElementById('c-name').value.trim();
   if (!name) { showToast('Party name આપો'); document.getElementById('c-name').focus(); return; }
@@ -1468,7 +1610,7 @@ function saveEst() {
   const mobDigits = mob.replace(/\D/g, '');
   const mobWarn = (mobDigits.length > 0 && mobDigits.length < 10);
 
-  const list = JSON.parse(localStorage.getItem('roop_ests') || '[]');
+  const list = readStore('roop_ests', []);
   const now = new Date().toLocaleString('en-IN');
   const baseData = {
     cName: name,
@@ -1485,7 +1627,8 @@ function saveEst() {
     items: JSON.parse(JSON.stringify(items)),
     disc: parseFloat(document.getElementById('disc').value) || 0,
     advance: parseFloat(document.getElementById('advance').value) || 0,
-    status: document.getElementById('est-status').value || 'pending'
+    status: document.getElementById('est-status').value || 'pending',
+    bookingGroupId: currentBookingGroupId || undefined
   };
 
   if (currentEstId) {
@@ -1513,6 +1656,7 @@ function saveEst() {
 
 // ── CLEAR FORM ─────────────────────────────────────────────
 function clearForm() {
+  currentBookingGroupId = null;
   ['c-name', 'c-mob', 'c-addr', 'p-place', 'p-date', 'p-day', 'p-pers', 'p-menu', 'p-notes', 'disc', 'advance'].forEach(id => {
     document.getElementById(id).value = '';
   });
@@ -1548,7 +1692,7 @@ function clearForm() {
 
 // ── CUSTOMER AUTOCOMPLETE ──────────────────────────────────
 function populateCustomerList() {
-  const list = JSON.parse(localStorage.getItem('roop_ests') || '[]');
+  const list = readStore('roop_ests', []);
   const seen = new Set();
   const dl = document.getElementById('cust-names');
   if (!dl) return;
@@ -1566,7 +1710,7 @@ function tryAutofillFromMobile() {
   const mobEl = document.getElementById('c-mob');
   const mob = mobEl.value.trim();
   if (!mob) return;
-  const list = JSON.parse(localStorage.getItem('roop_ests') || '[]');
+  const list = readStore('roop_ests', []);
   const match = list.find(e => (e.cMob || '').trim() === mob);
   if (!match) return;
   const nameEl = document.getElementById('c-name');
@@ -1579,7 +1723,7 @@ function tryAutofillFromMobile() {
 
 // ── SHOW PRINT ─────────────────────────────────────────────
 function buildCurrentEst() {
-  const list = JSON.parse(localStorage.getItem('roop_ests') || '[]');
+  const list = readStore('roop_ests', []);
   const existing = currentEstId ? list.find(e => e.id === currentEstId) : null;
   return {
     cName: document.getElementById('c-name').value,
@@ -1797,6 +1941,7 @@ function shareDocumentWhatsApp(docType) {
   lines.push('*' + titleMap[docType] + '*');
   lines.push('');
   if (est.estNo) lines.push((docType === 'invoice' ? 'Invoice No' : 'No') + ': ' + est.estNo);
+  if (est.bookingGroupId) lines.push('Multiple-program booking');
   lines.push('Customer: ' + (est.cName || '-'));
   if (est.pType) lines.push('Program: ' + est.pType);
   if (est.pDate) lines.push('Date: ' + fmtDMY(est.pDate));
@@ -1824,7 +1969,7 @@ function nextReceiptNo() {
 }
 
 function getOrAssignReceiptNo(paymentId) {
-  const all = JSON.parse(localStorage.getItem('roop_payments') || '[]');
+  const all = readStore('roop_payments', []);
   const idx = all.findIndex(p => p.paymentId === paymentId);
   if (idx === -1) return null;
   if (!all[idx].receiptNo) {
@@ -2109,7 +2254,7 @@ function defaultSettings() {
 function loadSettings() {
   const def = defaultSettings();
   try {
-    const s = JSON.parse(localStorage.getItem('roop_settings'));
+    const s = readStore('roop_settings', null);
     return s ? Object.assign({}, def, s) : def;
   } catch (e) { return def; }
 }
@@ -2392,13 +2537,13 @@ function applyBranding() {
 // ── BACKUP / RESTORE ───────────────────────────────────────
 function exportBackup() {
   const data = {
-    estimates: JSON.parse(localStorage.getItem('roop_ests') || '[]'),
-    trash: JSON.parse(localStorage.getItem('roop_trash') || '[]'),
-    payments: JSON.parse(localStorage.getItem('roop_payments') || '[]'),
-    customers: JSON.parse(localStorage.getItem('roop_customers') || '[]'),
-    itemCatalog: JSON.parse(localStorage.getItem('roop_item_catalog') || '[]'),
-    settings: JSON.parse(localStorage.getItem('roop_settings') || 'null'),
-    templates: JSON.parse(localStorage.getItem('roop_templates') || '[]'),
+    estimates: readStore('roop_ests', []),
+    trash: readStore('roop_trash', []),
+    payments: readStore('roop_payments', []),
+    customers: readStore('roop_customers', []),
+    itemCatalog: readStore('roop_item_catalog', []),
+    settings: readStore('roop_settings', null),
+    templates: readStore('roop_templates', []),
     counter: localStorage.getItem('roop_est_counter') || '0',
     receiptCounter: localStorage.getItem('roop_receipt_counter') || '0',
     exportedAt: new Date().toISOString()
@@ -2474,7 +2619,7 @@ function installApp() {
 
 // ── TEMPLATES: USE / MANAGE ─────────────────────────────────
 function getTemplateById(id) {
-  const list = JSON.parse(localStorage.getItem('roop_templates') || '[]');
+  const list = readStore('roop_templates', []);
   return list.find(t => t.id === id);
 }
 
@@ -2500,7 +2645,7 @@ function useFullCatalog() {
 }
 
 function renderTplList() {
-  const list = JSON.parse(localStorage.getItem('roop_templates') || '[]');
+  const list = readStore('roop_templates', []);
   const cont = document.getElementById('tmpl-list-cont');
   if (!list.length) {
     cont.innerHTML = '<div class="emp"><div class="eic">📑</div><div>કોઈ Template નથી.<br>ઉપર ➕ New Template દબાવો.</div></div>';
@@ -2521,7 +2666,7 @@ function renderTplList() {
 
 function deleteTemplate(id) {
   if (!confirm('આ template ડિલીટ કરવી છે?')) return;
-  let list = JSON.parse(localStorage.getItem('roop_templates') || '[]');
+  let list = readStore('roop_templates', []);
   list = list.filter(t => t.id !== id);
   localStorage.setItem('roop_templates', JSON.stringify(list));
   if (activeTemplateId === id) { activeTemplateId = null; activeTemplateName = ''; }
@@ -2659,7 +2804,7 @@ function saveTemplate() {
   const name = document.getElementById('tmpl-name').value.trim();
   if (!name) { showToast('Template નામ આપો'); document.getElementById('tmpl-name').focus(); return; }
   if (!tplDraftItems.length) { showToast('ઓછામાં ઓછી 1 item ઉમેરો'); return; }
-  const list = JSON.parse(localStorage.getItem('roop_templates') || '[]');
+  const list = readStore('roop_templates', []);
   const now = new Date().toLocaleString('en-IN');
   let savedId = tplDraftId;
   if (tplDraftId) {
@@ -2702,7 +2847,7 @@ function estNet(e) {
 // ── PAYMENT MANAGEMENT (multi-payment ledger) ───────────────
 // roop_payments: [{ paymentId, estimateId, amount, date, mode, notes, createdAt }]
 function getPaymentsForEst(estimateId) {
-  const all = JSON.parse(localStorage.getItem('roop_payments') || '[]');
+  const all = readStore('roop_payments', []);
   return all.filter(p => p.estimateId === estimateId);
 }
 
@@ -2724,8 +2869,8 @@ function paymentSummary(estimateId) {
 // first payment record, but only if that estimate has no payment yet.
 // Never touches roop_ests — only ever appends to roop_payments.
 function migrateAdvanceToPayments() {
-  const ests = JSON.parse(localStorage.getItem('roop_ests') || '[]');
-  const payments = JSON.parse(localStorage.getItem('roop_payments') || '[]');
+  const ests = readStore('roop_ests', []);
+  const payments = readStore('roop_payments', []);
   let changed = false;
   ests.forEach(e => {
     const adv = e.advance || 0;
@@ -2751,7 +2896,7 @@ function openPaymentForm(paymentId) {
   const form = document.getElementById('pmt-form');
   form.style.display = 'block';
   if (paymentId) {
-    const all = JSON.parse(localStorage.getItem('roop_payments') || '[]');
+    const all = readStore('roop_payments', []);
     const p = all.find(x => x.paymentId === paymentId);
     if (!p) return;
     document.getElementById('pmt-edit-id').value = p.paymentId;
@@ -2787,7 +2932,7 @@ function savePayment() {
   if (!date) { showToast('Payment date જરૂરી છે'); return; }
   if (!mode) { showToast('Payment mode પસંદ કરો'); return; }
 
-  const all = JSON.parse(localStorage.getItem('roop_payments') || '[]');
+  const all = readStore('roop_payments', []);
   const editId = document.getElementById('pmt-edit-id').value;
   if (editId) {
     const idx = all.findIndex(p => p.paymentId === editId);
@@ -2810,7 +2955,7 @@ function savePayment() {
 
 function deletePayment(paymentId) {
   if (!confirm('આ payment ડિલીટ કરવી છે?')) return;
-  let all = JSON.parse(localStorage.getItem('roop_payments') || '[]');
+  let all = readStore('roop_payments', []);
   all = all.filter(p => p.paymentId !== paymentId);
   localStorage.setItem('roop_payments', JSON.stringify(all));
   showToast('Payment ડિલીટ થઈ');
@@ -2852,7 +2997,7 @@ function renderPaymentSection() {
 }
 
 function getEstById(id) {
-  const list = JSON.parse(localStorage.getItem('roop_ests') || '[]');
+  const list = readStore('roop_ests', []);
   return list.find(e => e.id === id);
 }
 
@@ -2933,7 +3078,7 @@ function applyReportCustomRange() {
 // Program-Date-scoped active estimates within [from,to] — used for every
 // booking/financial/customer/item/program report section.
 function reportEstimatesInRange(from, to) {
-  const ests = JSON.parse(localStorage.getItem('roop_ests') || '[]'); // trash already excluded — separate store
+  const ests = readStore('roop_ests', []); // trash already excluded — separate store
   return ests.filter(e => isValidPDate(e.pDate) && e.pDate >= from && e.pDate <= to);
 }
 // Same convention used across the app: "booking amount" figures are
@@ -2947,7 +3092,7 @@ function reportBookingsInRange(from, to) {
 // spec): a payment received on 10 Aug for a 20 Aug event belongs to the
 // 10 Aug payment report, not the 20 Aug one.
 function reportPaymentsInRange(from, to) {
-  const payments = JSON.parse(localStorage.getItem('roop_payments') || '[]');
+  const payments = readStore('roop_payments', []);
   return payments.filter(p => p.date && p.date >= from && p.date <= to);
 }
 
@@ -3149,7 +3294,7 @@ function exportReportCSV() {
 
   rows.push(['PAYMENTS (Payment Date)', 'Date', 'Estimate No', 'Customer', 'Amount', 'Mode']);
   const estMap = {};
-  JSON.parse(localStorage.getItem('roop_ests') || '[]').forEach(e => { estMap[e.id] = e; });
+  readStore('roop_ests', []).forEach(e => { estMap[e.id] = e; });
   paymentsInRange.forEach(p => {
     const e = estMap[p.estimateId];
     rows.push(['', fmtDMY(p.date), e ? e.estNo : '', e ? e.cName : 'Unknown', p.amount, p.mode]);
@@ -3176,7 +3321,7 @@ function exportReportCSV() {
 }
 
 function quickStatus(id, status) {
-  const list = JSON.parse(localStorage.getItem('roop_ests') || '[]');
+  const list = readStore('roop_ests', []);
   const idx = list.findIndex(e => e.id === id);
   if (idx !== -1) {
     list[idx].status = status;
@@ -3194,7 +3339,7 @@ function setInvoicePayFilter(f) {
 }
 
 function renderHist() {
-  const list = JSON.parse(localStorage.getItem('roop_ests') || '[]');
+  const list = readStore('roop_ests', []);
 
   const now = new Date();
   const thisMonth = list.filter(e => {
@@ -3258,6 +3403,7 @@ function renderHist() {
         '<button class="btn bg" onclick="loadEst(' + e.id + ')">✏️ Edit</button>' +
         '<button class="btn bm" onclick="printEst(' + e.id + ')">🖨️ Print</button>' +
         '<button class="btn bw" onclick="shareWhatsApp(getEstById(' + e.id + '))">💬</button>' +
+        '<button class="btn bo" onclick="duplicateEstimate(' + e.id + ')">📑 Copy</button>' +
         '<button class="btn bd" onclick="delEst(' + e.id + ')">🗑️</button>' +
       '</div>' +
     '</div>';
@@ -3286,6 +3432,7 @@ function loadEst(id) {
   activeTemplateId = null;
   activeTemplateName = '';
   currentEstId = e.id;
+  currentBookingGroupId = e.bookingGroupId || null;
   showEditBanner(e);
   renderItems();
   renderPaymentSection();
@@ -3299,12 +3446,12 @@ function printEst(id) {
 
 function delEst(id) {
   if (!confirm('આ estimate Recycle Bin માં move કરવી છે?')) return;
-  const list = JSON.parse(localStorage.getItem('roop_ests') || '[]');
+  const list = readStore('roop_ests', []);
   const idx = list.findIndex(e => e.id === id);
   if (idx !== -1) {
     const [removed] = list.splice(idx, 1);
     removed.deletedAt = new Date().toISOString();
-    const trash = JSON.parse(localStorage.getItem('roop_trash') || '[]');
+    const trash = readStore('roop_trash', []);
     trash.unshift(removed);
     localStorage.setItem('roop_trash', JSON.stringify(trash));
     localStorage.setItem('roop_ests', JSON.stringify(list));
@@ -3315,12 +3462,12 @@ function delEst(id) {
 
 // ── RECYCLE BIN ────────────────────────────────────────────
 function restoreEst(id) {
-  const trash = JSON.parse(localStorage.getItem('roop_trash') || '[]');
+  const trash = readStore('roop_trash', []);
   const idx = trash.findIndex(e => e.id === id);
   if (idx === -1) return;
   const [restored] = trash.splice(idx, 1);
   delete restored.deletedAt;
-  const list = JSON.parse(localStorage.getItem('roop_ests') || '[]');
+  const list = readStore('roop_ests', []);
   list.unshift(restored);
   localStorage.setItem('roop_ests', JSON.stringify(list));
   localStorage.setItem('roop_trash', JSON.stringify(trash));
@@ -3330,14 +3477,14 @@ function restoreEst(id) {
 
 function permanentDeleteEst(id) {
   if (!confirm('આ estimate કાયમ માટે ડિલીટ થશે, પાછી નહિ મળે. ખાતરી છે?')) return;
-  const trash = JSON.parse(localStorage.getItem('roop_trash') || '[]');
+  const trash = readStore('roop_trash', []);
   const idx = trash.findIndex(e => e.id === id);
   if (idx !== -1) { trash.splice(idx, 1); localStorage.setItem('roop_trash', JSON.stringify(trash)); }
   renderTrash();
 }
 
 function emptyTrash() {
-  const trash = JSON.parse(localStorage.getItem('roop_trash') || '[]');
+  const trash = readStore('roop_trash', []);
   if (!trash.length) return;
   if (!confirm('Recycle Bin ની બધી (' + trash.length + ') estimates કાયમ માટે ડિલીટ થશે. ખાતરી છે?')) return;
   if (!confirm('ફરી ખાતરી કરો: આ ડેટા પાછો નહિ મળે. Continue?')) return;
@@ -3347,7 +3494,7 @@ function emptyTrash() {
 
 function purgeOldTrash() {
   // Auto-remove items sitting in trash for more than 90 days
-  const trash = JSON.parse(localStorage.getItem('roop_trash') || '[]');
+  const trash = readStore('roop_trash', []);
   if (!trash.length) return;
   const cutoff = Date.now() - 90 * 24 * 60 * 60 * 1000;
   const kept = trash.filter(e => {
@@ -3358,7 +3505,7 @@ function purgeOldTrash() {
 }
 
 function renderTrash() {
-  const trash = JSON.parse(localStorage.getItem('roop_trash') || '[]');
+  const trash = readStore('roop_trash', []);
   const badge = document.getElementById('trash-count-badge');
   if (badge) badge.textContent = trash.length ? String(trash.length) : '';
   const cont = document.getElementById('trash-list');
@@ -3409,7 +3556,7 @@ function fmtDMY(dstr) {
 
 // ── DASHBOARD ──────────────────────────────────────────────
 function renderDashboard() {
-  const list = JSON.parse(localStorage.getItem('roop_ests') || '[]');
+  const list = readStore('roop_ests', []);
   const today = todayStr();
 
   const totalEstimates = list.length;
@@ -3513,7 +3660,7 @@ function customerMatchKey(name, mobile, address) {
 }
 
 function getCustomers() {
-  return JSON.parse(localStorage.getItem('roop_customers') || '[]');
+  return readStore('roop_customers', []);
 }
 function saveCustomers(list) {
   localStorage.setItem('roop_customers', JSON.stringify(list));
@@ -3550,7 +3697,7 @@ function findOrCreateCustomer(name, mobile, address) {
 // roop_customers — never touches roop_ests, roop_payments, roop_templates,
 // or roop_trash. Safe to call on every app load and every Customers-page visit.
 function migrateEstimatesToCustomers() {
-  const ests = JSON.parse(localStorage.getItem('roop_ests') || '[]');
+  const ests = readStore('roop_ests', []);
   ests.forEach(e => {
     if ((e.cName || '').trim() || (e.cMob || '').trim()) {
       findOrCreateCustomer(e.cName, e.cMob, e.cAddr);
@@ -3564,7 +3711,7 @@ function migrateEstimatesToCustomers() {
 // (Recycle Bin items live only in roop_trash, so they're never read here)
 // are matched onto each one and may total zero.
 function buildCustomerAggregates() {
-  const ests = JSON.parse(localStorage.getItem('roop_ests') || '[]');
+  const ests = readStore('roop_ests', []);
   const today = todayStr();
 
   const estGroups = {};
@@ -3657,6 +3804,73 @@ function renderCustomers() {
   ).join('');
 }
 
+// Create another program under the same customer booking group. Each program
+// remains a separate estimate with its own date, items, payments and status.
+function startRelatedProgram() {
+  const profile = getCustomerById(currentCustomerId);
+  if (!profile) return;
+  const agg = buildCustomerAggregates().find(c => c.customerId === currentCustomerId);
+  const latest = agg && agg.estimates.length ? agg.estimates.slice().sort((a,b) => (b.savedAt||'').localeCompare(a.savedAt||''))[0] : null;
+  const existingGroup = agg && agg.estimates.slice().reverse().find(e => e.bookingGroupId);
+  const groupId = (latest && latest.bookingGroupId) || (existingGroup && existingGroup.bookingGroupId) || ('grp_' + Date.now());
+  clearForm();
+  currentBookingGroupId = groupId;
+  document.getElementById('c-name').value = profile.name || '';
+  document.getElementById('c-mob').value = profile.mobile || '';
+  document.getElementById('c-addr').value = profile.address || '';
+  document.getElementById('est-status').value = 'pending';
+  showPg('pg-new');
+  showToast('Add program details. It will be linked to this customer booking.');
+}
+
+// Duplicate an estimate as a fresh draft. Never copies ID, estimate number,
+// receipts or payment records, so financial history cannot be double-counted.
+function duplicateEstimate(id) {
+  const e = getEstById(id);
+  if (!e) return;
+  clearForm();
+  document.getElementById('c-name').value = e.cName || '';
+  document.getElementById('c-mob').value = e.cMob || '';
+  document.getElementById('c-addr').value = e.cAddr || '';
+  document.getElementById('p-type').value = e.pType || '';
+  document.getElementById('p-place').value = e.pPlace || '';
+  document.getElementById('p-pers').value = e.pPers || '';
+  document.getElementById('p-time').value = e.pTime || '';
+  document.getElementById('p-menu').value = e.pMenu || '';
+  document.getElementById('p-notes').value = e.pNotes || '';
+  document.getElementById('disc').value = e.disc || 0;
+  document.getElementById('advance').value = 0;
+  document.getElementById('est-status').value = 'pending';
+  items = (e.items || []).map(it => Object.assign({}, it));
+  itemsFlatMode = !itemsMatchDefaultCatalog(items);
+  currentEstId = null;
+  currentBookingGroupId = null;
+  document.getElementById('edit-banner').style.display = 'none';
+  renderItems();
+  renderPaymentSection();
+  showPg('pg-new');
+  showToast('Copied as a new draft. Set a new date and save.');
+}
+
+// Excel-compatible multi-sheet workbook (SpreadsheetML 2003). Opens in Excel
+// with separate Customers, Bookings and Payments worksheets; no internet needed.
+function exportExcelWorkbook() {
+  const customers = getCustomers();
+  const estimates = readStore('roop_ests', []);
+  const payments = readStore('roop_payments', []);
+  const escXml = v => String(v == null ? '' : v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;');
+  const sheet = (name, headers, rows) => '<Worksheet ss:Name="' + name + '"><Table><Row>' + headers.map(h => '<Cell><Data ss:Type="String">' + escXml(h) + '</Data></Cell>').join('') + '</Row>' + rows.map(row => '<Row>' + row.map(v => '<Cell><Data ss:Type="String">' + escXml(v) + '</Data></Cell>').join('') + '</Row>').join('') + '</Table></Worksheet>';
+  const custRows = customers.map(c => [c.name,c.mobile,(c.phoneNumbers||[]).join(', '),c.address,(c.addresses||[]).join(' | '),c.preferences||'',c.archived?'Archived':'Active']);
+  const bookRows = estimates.map(e => { const a=estAmounts(e), p=paymentSummary(e.id); return [e.estNo,e.bookingGroupId||'',e.cName,e.cMob,e.pType,e.pDate,e.pPlace,e.status,a.net,p.paid,p.due,(e.items||[]).map(i=>i.name+' x'+i.qty+' @ '+i.rate).join('; ')]; });
+  const payRows = payments.map(p => [p.receiptNo||'',p.estimateId||p.estId||'',p.date||p.paymentDate||'',p.amount||'',p.mode||p.method||'',p.note||p.notes||'']);
+  const xml = '<?xml version="1.0"?><Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">' + sheet('Customers',['Name','Mobile','Other Mobiles','Address','Other Addresses','Preferences','Status'],custRows) + sheet('Bookings',['Estimate No','Booking Group','Customer','Mobile','Program','Date','Place','Status','Net Amount','Paid','Due','Items'],bookRows) + sheet('Payments',['Receipt No','Estimate ID','Date','Amount','Mode','Notes'],payRows) + '</Workbook>';
+  const blob = new Blob([xml], {type:'application/vnd.ms-excel'});
+  const url = URL.createObjectURL(blob), a=document.createElement('a');
+  a.href=url; a.download='RoopDecorators_Export_'+new Date().toISOString().slice(0,10)+'.xls';
+  document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+  showToast('Excel workbook downloaded');
+}
+
 // ── CUSTOMER DETAIL ───────────────────────────────────────────
 let currentCustomerId = null;
 
@@ -3683,7 +3897,7 @@ function buildCustBookingCardHtml(e) {
   const st = e.status || 'pending';
   return '<div class="cal-event-card st-' + st + '" onclick="loadEst(' + e.id + ')">' +
     '<div class="cev-top"><span class="cev-name">' + esc(e.pType || 'Program') + '</span><span class="cev-no">' + esc(e.estNo || '') + '</span></div>' +
-    '<div class="cev-meta">' + esc(fmtDMY(e.pDate) || 'No date') + (e.pPlace ? ' · ' + esc(e.pPlace) : '') + ' · <span class="st-sel st-' + st + '" style="padding:1px 6px">' + statusLabelShort(st) + '</span></div>' +
+    '<div class="cev-meta">' + esc(fmtDMY(e.pDate) || 'No date') + (e.pPlace ? ' · ' + esc(e.pPlace) : '') + (e.bookingGroupId ? ' · <b>Linked program</b>' : '') + ' · <span class="st-sel st-' + st + '" style="padding:1px 6px">' + statusLabelShort(st) + '</span></div>' +
     '<div class="cev-amts">' +
       '<div>Total<b>₹' + amt.net.toLocaleString('en-IN') + '</b></div>' +
       '<div>Paid<b>₹' + pay.paid.toLocaleString('en-IN') + '</b></div>' +
@@ -3706,6 +3920,9 @@ function renderCustomerDetail() {
   document.getElementById('cd-name').textContent = name || 'Unknown';
   document.getElementById('cd-mobile').textContent = mobile || '—';
   document.getElementById('cd-address').textContent = address || '—';
+  const extra = (profile && profile.phoneNumbers || []).filter(x => x && x !== mobile);
+  document.getElementById('cd-address').textContent = (address || '—') + ((profile && profile.addresses || []).filter(x => x && x !== address).length ? ' | Other: ' + profile.addresses.filter(x => x && x !== address).join(' / ') : '');
+  if (extra.length) document.getElementById('cd-mobile').textContent = (mobile || '—') + ' | Other: ' + extra.join(', ');
 
   const callBtn = document.getElementById('cd-call-btn');
   const waBtn = document.getElementById('cd-wa-btn');
@@ -3735,6 +3952,13 @@ function renderCustomerDetail() {
     ? past.map(buildCustBookingCardHtml).join('')
     : '<div class="emp" style="padding:16px"><div class="eic">📭</div><div>No past bookings</div></div>';
 
+  const estimateIds = new Set(estimates.map(e => e.id));
+  const transactions = readStore('roop_payments', []).filter(p => estimateIds.has(p.estimateId)).sort((a,b) => (b.date||'').localeCompare(a.date||''));
+  document.getElementById('cd-transactions').innerHTML = transactions.length ? transactions.map(p => {
+    const linked = estimates.find(e => e.id === p.estimateId);
+    return '<div class="cal-event-card" style="margin-bottom:7px"><div class="cev-top"><span class="cev-name">₹' + Number(p.amount||0).toLocaleString('en-IN') + '</span><span class="cev-no">' + esc(p.mode||'') + '</span></div><div class="cev-meta">' + esc(fmtDMY(p.date)||'') + ' · ' + esc(linked ? linked.estNo : '') + (p.notes ? ' · ' + esc(p.notes) : '') + '</div></div>';
+  }).join('') : '<div class="emp" style="padding:12px">No payment transactions yet</div>';
+
   const archBtn = document.getElementById('cd-archive-btn');
   archBtn.textContent = (profile && profile.archived) ? '♻️ Unarchive Customer' : '🗄️ Archive Customer';
 
@@ -3755,6 +3979,9 @@ function openCustEditForm() {
   document.getElementById('ce-name').value = profile.name || '';
   document.getElementById('ce-mobile').value = profile.mobile || '';
   document.getElementById('ce-address').value = profile.address || '';
+  document.getElementById('ce-mobiles').value = (profile.phoneNumbers || []).filter(x => x !== profile.mobile).join(', ');
+  document.getElementById('ce-addresses').value = (profile.addresses || []).filter(x => x !== profile.address).join('\n');
+  document.getElementById('ce-preferences').value = profile.preferences || '';
   document.getElementById('cust-edit-form').style.display = 'block';
 }
 function closeCustEditForm() {
@@ -3771,7 +3998,9 @@ function saveCustEdit() {
   if (idx === -1) return;
   // Only the customer profile changes — every existing estimate keeps its
   // own historical cName/cMob/cAddr exactly as saved, untouched.
-  customers[idx] = Object.assign({}, customers[idx], { name, mobile, address, updatedAt: new Date().toISOString() });
+  const phoneNumbers = [mobile, ...document.getElementById('ce-mobiles').value.split(',').map(x => x.trim())].filter((x, i, a) => x && a.indexOf(x) === i);
+  const addresses = [address, ...document.getElementById('ce-addresses').value.split('\n').map(x => x.trim())].filter((x, i, a) => x && a.indexOf(x) === i);
+  customers[idx] = Object.assign({}, customers[idx], { name, mobile, address, phoneNumbers, addresses, preferences: document.getElementById('ce-preferences').value.trim(), updatedAt: new Date().toISOString() });
   saveCustomers(customers);
   showToast('✓ Customer updated');
   renderCustomerDetail();
@@ -3893,11 +4122,11 @@ function applyCustomPaymentRange() {
 }
 
 function renderPayments() {
-  const ests = JSON.parse(localStorage.getItem('roop_ests') || '[]');
+  const ests = readStore('roop_ests', []);
   const estMap = {};
   ests.forEach(e => { estMap[e.id] = e; });
 
-  const allPayments = JSON.parse(localStorage.getItem('roop_payments') || '[]');
+  const allPayments = readStore('roop_payments', []);
   const today = todayStr();
   let payments = allPayments.slice();
 
@@ -3973,7 +4202,7 @@ function isValidPDate(dstr) {
 // (non-trashed) estimates. Trashed items live only in roop_trash and are
 // never read here, so they never appear on the calendar.
 function buildCalEventMap() {
-  const list = JSON.parse(localStorage.getItem('roop_ests') || '[]');
+  const list = readStore('roop_ests', []);
   const map = {};
   list.forEach(e => {
     if (!isValidPDate(e.pDate)) return; // invalid/missing dates never placed on calendar
@@ -4014,18 +4243,99 @@ function calSelectDate(dstr) {
   renderCalendar();
 }
 
-// Program preview card: Date, Time, Customer Name, Customer Address,
-// Program, Place, Persons — plus a light status indicator. Kept separate
-// from the financial figures shown elsewhere (Payments, Reports), since a
-// "program preview" is about the event itself, not its money.
-function buildCalEventCardHtml(e) {
+// ── CALENDAR PREVIEW CARD ─────────────────────────────────────
+// Compact card, line by line:
+//   1) Date · Program · Persons
+//   2) Day · Customer Name
+//   3) Time Slot · Place
+//   4) Notes
+// Status is shown by the card's coloured left edge (and, in the mixed-status
+// day panel, a small icon beside the date).
+function calSlotShort(t) {
+  if (!t) return '';
+  const m = /\(([^)]+)\)/.exec(t);
+  return m ? m[1] : t; // "Evening (સાંજ)" -> "સાંજ"
+}
+function calSlotRank(t) {
+  const s = t || '';
+  if (/સવાર|morning/i.test(s)) return 0;
+  if (/બપોર|noon/i.test(s)) return 1;
+  if (/સાંજ|evening/i.test(s)) return 2;
+  return 3;
+}
+// Weekday is always derived from the program date (the source of truth);
+// the stored pDay is only a fallback.
+function calDayLabel(e) {
+  let s = '';
+  if (isValidPDate(e.pDate)) {
+    const d = new Date(e.pDate + 'T00:00:00');
+    s = GU[d.getDay()];
+  } else if (e.pDay) {
+    s = String(e.pDay).split(' (')[0];
+  }
+  return s;
+}
+
+function calProgramColourClass(type) {
+  const t = String(type || '').toLowerCase();
+  if (t.includes('haldi')) return 'prog-haldi';
+  if (t.includes('nikah')) return 'prog-nikah';
+  if (t.includes('valima')) return 'prog-valima';
+  if (t.includes('engagement')) return 'prog-engagement';
+  if (t.includes('akikah')) return 'prog-akikah';
+  if (t.includes('gyarvi')) return 'prog-gyarvi';
+  if (t.includes('upghatan')) return 'prog-upghatan';
+  if (t.includes('birthday')) return 'prog-birthday';
+  return '';
+}
+
+function buildCalEventCardHtml(e, showStatus) {
   const st = e.status || 'pending';
-  return '<div class="cal-event-card st-' + st + '" onclick="loadEst(' + e.id + ')">' +
-    '<div class="cev-top"><span class="cev-name" onclick="event.stopPropagation(); goCustomerFromEstId(' + e.id + ')" style="cursor:pointer;text-decoration:underline dotted">' + esc(e.cName || 'Unknown') + '</span><span class="cev-no">' + esc(e.estNo || '') + '</span></div>' +
-    '<div class="cev-meta">' + esc(fmtDMY(e.pDate)) + (e.pTime ? ' · ' + esc(e.pTime) : '') + ' · <span class="st-sel st-' + st + '" style="padding:1px 6px">' + statusLabelShort(st) + '</span></div>' +
-    '<div class="cev-meta">' + esc(e.pType || 'Program') + (e.pPlace ? ' · ' + esc(e.pPlace) : '') + (e.pPers ? ' · ' + esc(e.pPers) + ' persons' : '') + '</div>' +
-    (e.cAddr ? '<div class="cev-meta">📍 ' + esc(e.cAddr) + '</div>' : '') +
+  const progClass = calProgramColourClass(e.pType);
+  const stIcon = { pending: '📝', confirmed: '📦', done: '🧾' }[st] || '';
+  const slot = calSlotShort(e.pTime);
+  const blank = '<div></div>';
+  // Row-major cells for a 3-column grid; every row always has 3 cells so
+  // nothing shifts when a value is missing.
+  const cells = [
+    // Line 1: Date · Program · Persons
+    '<div class="cg-date">' + esc(fmtDMY(e.pDate)) + (showStatus ? ' ' + stIcon : '') + '</div>',
+    '<div>' + esc(e.pType || '') + '</div>',
+    '<div>' + (e.pPers ? '👥 ' + esc(e.pPers) : '') + '</div>',
+    // Line 2: Day · Customer Name
+    '<div>' + esc(calDayLabel(e)) + '</div>',
+    '<div class="cg-cust"><span onclick="event.stopPropagation(); goCustomerFromEstId(' + e.id + ')" style="cursor:pointer;text-decoration:underline dotted">' + esc(e.cName || 'Unknown') + '</span></div>',
+    blank
+  ];
+  // Line 3: Time Slot · Place (skipped entirely if both are empty)
+  if (slot || e.pPlace) {
+    cells.push('<div>' + esc(slot) + '</div>', '<div>' + (e.pPlace ? '📍 ' + esc(e.pPlace) : '') + '</div>', blank);
+  }
+  // Line 4: Notes (full width, only if present)
+  const notes = (e.pNotes || '').trim();
+  return '<div class="cal-event-card cal-compact st-' + st + ' ' + progClass + '" onclick="loadEst(' + e.id + ')">' +
+    '<div class="cev-grid3">' + cells.join('') + '</div>' +
+    (notes ? '<div class="cev-notes">🗒️ ' + esc(notes) + '</div>' : '') +
   '</div>';
+}
+
+// ── CALENDAR SORT ─────────────────────────────────────────────
+let calSort = 'date'; // 'date' | 'name'
+
+function setCalSort(s) {
+  calSort = s;
+  renderCalendar();
+}
+
+// Date sort: program date, then Morning → Noon → Evening, then name.
+// Name sort: customer name, then date and slot.
+function calCompare(a, b) {
+  const byName = (a.cName || '').localeCompare(b.cName || '', undefined, { sensitivity: 'base' });
+  if (calSort === 'name' && byName) return byName;
+  if ((a.pDate || '') !== (b.pDate || '')) return (a.pDate || '') < (b.pDate || '') ? -1 : 1;
+  const r = calSlotRank(a.pTime) - calSlotRank(b.pTime);
+  if (r) return r;
+  return byName;
 }
 
 function renderCalDayPanel(dateStr, eventMap) {
@@ -4037,8 +4347,8 @@ function renderCalDayPanel(dateStr, eventMap) {
     panel.innerHTML = '<div class="ch">' + esc(heading) + '</div><div class="cb"><div class="emp"><div class="eic">📭</div><div>No programs scheduled ' + (dateStr === todayStr() ? 'today' : 'on this date') + '.</div></div></div>';
     return;
   }
-  const sorted = events.slice().sort((a, b) => (a.pTime || '').localeCompare(b.pTime || ''));
-  panel.innerHTML = '<div class="ch">' + esc(heading) + '</div><div class="cb">' + sorted.map(buildCalEventCardHtml).join('') + '</div>';
+  const sorted = events.slice().sort(calCompare);
+  panel.innerHTML = '<div class="ch">' + esc(heading) + '</div><div class="cb">' + sorted.map(ev => buildCalEventCardHtml(ev, true)).join('') + '</div>';
 }
 
 // Everything scheduled in the currently VIEWED month (not just "next 5
@@ -4051,7 +4361,8 @@ function renderCalMonthLists(eventMap) {
   Object.keys(eventMap).forEach(dstr => {
     if (dstr.slice(0, 7) === monthPrefix) eventMap[dstr].forEach(e => inMonth.push(e));
   });
-  inMonth.sort((a, b) => (a.pDate + (a.pTime || '')) < (b.pDate + (b.pTime || '')) ? -1 : 1);
+  inMonth.sort(calCompare);
+  document.querySelectorAll('#cal-sort-chips .chip').forEach(c => c.classList.toggle('on', c.dataset.cs === calSort));
 
   const groups = { pending: [], confirmed: [], done: [] };
   inMonth.forEach(e => {
@@ -4066,13 +4377,74 @@ function renderCalMonthLists(eventMap) {
 
   const renderGroup = (elId, list, emptyMsg) => {
     const cont = document.getElementById(elId);
-    cont.innerHTML = list.length
-      ? list.map(buildCalEventCardHtml).join('')
-      : '<div class="emp" style="padding:14px"><div class="eic">📭</div><div>' + emptyMsg + '</div></div>';
+    if (!list.length) {
+      cont.innerHTML = '<div class="emp" style="padding:14px"><div class="eic">📭</div><div>' + emptyMsg + '</div></div>';
+      return;
+    }
+
+    // In the Calendar Orders preview, visually separate each new program date.
+    // Date separators are shown when sorted by date; customer-name sorting is
+    // left uninterrupted so the requested name order remains easy to scan.
+    if (elId === 'cal-month-orders-list' && calSort === 'date') {
+      let previousDate = null;
+      cont.innerHTML = list.map(ev => {
+        const date = ev.pDate || '';
+        const separator = date !== previousDate
+          ? '<div class="cal-date-separator" role="separator"><span>' + esc(date ? fmtDMY(date) : 'Date not set') + '</span></div>'
+          : '';
+        previousDate = date;
+        return separator + buildCalEventCardHtml(ev);
+      }).join('');
+      return;
+    }
+
+    cont.innerHTML = list.map(ev => buildCalEventCardHtml(ev)).join('');
   };
   renderGroup('cal-month-estimates-list', groups.pending, 'આ મહિનામાં કોઈ Estimate નથી');
   renderGroup('cal-month-orders-list', groups.confirmed, 'આ મહિનામાં કોઈ Order નથી');
   renderGroup('cal-month-invoices-list', groups.done, 'આ મહિનામાં કોઈ Invoice નથી');
+}
+
+function ordersPdfDateLabel(dateStr) {
+  if (!dateStr) return 'Date not set';
+  return fmtDMY(dateStr) || dateStr;
+}
+
+function downloadOrdersPDF() {
+  const from = document.getElementById('orders-pdf-from').value;
+  const to = document.getElementById('orders-pdf-to').value;
+  const sortBy = document.getElementById('orders-pdf-sort').value;
+  if (!from || !to) { showToast('Please select both dates'); return; }
+  if (from > to) { showToast('From Date cannot be after To Date'); return; }
+
+  const all = readStore('roop_ests', []);
+  const orders = all.filter(e => (e.status || 'pending') === 'confirmed' && isValidPDate(e.pDate) && e.pDate >= from && e.pDate <= to);
+  if (!orders.length) { showToast('No confirmed orders found in this date range'); return; }
+  orders.sort((a, b) => {
+    if (sortBy === 'name') {
+      const n = (a.cName || '').localeCompare(b.cName || '', undefined, {sensitivity:'base'});
+      if (n) return n;
+    }
+    if ((a.pDate || '') !== (b.pDate || '')) return (a.pDate || '') < (b.pDate || '') ? -1 : 1;
+    return (a.cName || '').localeCompare(b.cName || '', undefined, {sensitivity:'base'});
+  });
+
+  const escPdf = v => esc(String(v == null ? '' : v));
+  let previousDate = '';
+  const rows = orders.map((e, i) => {
+    const dateBreak = sortBy === 'date' && e.pDate !== previousDate;
+    previousDate = e.pDate || '';
+    return (dateBreak ? '<tr class="date-separator"><td colspan="7">' + escPdf(ordersPdfDateLabel(e.pDate)) + '</td></tr>' : '') +
+      '<tr><td>' + (i + 1) + '</td><td>' + escPdf(e.estNo || '') + '</td><td>' + escPdf(e.cName || '') + '</td><td>' + escPdf(e.cMob || '') + '</td><td>' + escPdf(e.pType || '') + '</td><td>' + escPdf(e.pPlace || '') + '</td><td>' + escPdf(e.pTime || '') + '</td></tr>';
+  }).join('');
+  const fileTitle = 'Orders ' + from.split('-').reverse().map((v,i) => i === 2 ? v.slice(-2) : v).join('-') + ' To ' + to.split('-').reverse().map((v,i) => i === 2 ? v.slice(-2) : v).join('-');
+  const w = window.open('', '_blank');
+  if (!w) { showToast('Please allow pop-ups to create the PDF'); return; }
+  w.document.open();
+  w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>' + escPdf(fileTitle) + '</title><style>' +
+    '@page{size:A4 portrait;margin:14mm}*{box-sizing:border-box}body{font-family:Arial,sans-serif;color:#222;font-size:10px}h1{font-size:19px;margin:0 0 5px;color:#6B0F1A} .sub{font-size:10px;color:#555;margin-bottom:14px}.meta{margin-bottom:10px;font-size:10px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #bbb;padding:7px 5px;text-align:left;vertical-align:top}th{background:#6B0F1A;color:#fff;font-size:9px}.date-separator td{background:#f0e5d7;color:#6B0F1A;font-weight:bold;border-top:2px solid #6B0F1A;padding:6px}.footer{margin-top:12px;font-size:9px;color:#666}@media print{button{display:none}}' +
+    '</style></head><body><h1>Roop Decorators</h1><div class="sub">Decorating things with heart</div><div class="meta"><b>Orders:</b> ' + escPdf(ordersPdfDateLabel(from)) + ' to ' + escPdf(ordersPdfDateLabel(to)) + ' &nbsp; | &nbsp; <b>Sorted by:</b> ' + (sortBy === 'name' ? 'Customer Name' : 'Date') + ' &nbsp; | &nbsp; <b>Total Orders:</b> ' + orders.length + '</div><table><thead><tr><th>No.</th><th>Order No.</th><th>Customer Name</th><th>Mobile</th><th>Program</th><th>Place</th><th>Time</th></tr></thead><tbody>' + rows + '</tbody></table><div class="footer">Generated from Roop Decorators Estimate Maker</div><script>window.onload=function(){setTimeout(function(){window.print()},300)};<\/script></body></html>');
+  w.document.close();
 }
 
 function renderCalendar() {
@@ -4086,6 +4458,10 @@ function renderCalendar() {
   const today = todayStr();
 
   document.getElementById('cal-month-lbl').textContent = MON[calViewMonth] + ' ' + calViewYear;
+  const pdfFrom = document.getElementById('orders-pdf-from');
+  const pdfTo = document.getElementById('orders-pdf-to');
+  if (pdfFrom && !pdfFrom.value) pdfFrom.value = calViewYear + '-' + String(calViewMonth + 1).padStart(2, '0') + '-01';
+  if (pdfTo && !pdfTo.value) pdfTo.value = calViewYear + '-' + String(calViewMonth + 1).padStart(2, '0') + '-' + String(new Date(calViewYear, calViewMonth + 1, 0).getDate()).padStart(2, '0');
 
   const firstOfMonth = new Date(calViewYear, calViewMonth, 1);
   const startWeekday = firstOfMonth.getDay(); // 0=Sun
@@ -4146,9 +4522,11 @@ function showToast(msg) {
 }
 
 // ── INIT ───────────────────────────────────────────────────
-// Seed the history stack with the landing page so the very first Back
-// press has somewhere defined to go, instead of immediately exiting the app.
-try { history.replaceState({ page: 'pg-dashboard' }, '', '#pg-dashboard'); } catch (e) { /* ignore */ }
+// Seed/restore the app's current screen. A valid hash survives refresh;
+// unknown hashes safely fall back to the dashboard.
+const startupHash = (location.hash || '').replace(/^#/, '');
+const startupPage = isValidPage(startupHash) ? startupHash : 'pg-dashboard';
+try { history.replaceState({ page: startupPage }, '', '#' + startupPage); } catch (e) { /* ignore */ }
 renderItems();
 applyBranding();
 populateCustomerList();
@@ -4157,8 +4535,9 @@ purgeOldTrash();
 migrateAdvanceToPayments();
 migrateEstimatesToCustomers();
 renderDashboard();
+if (startupPage !== 'pg-dashboard') showPg(startupPage, true);
 (function initTrashBadge() {
-  const trash = JSON.parse(localStorage.getItem('roop_trash') || '[]');
+  const trash = readStore('roop_trash', []);
   const badge = document.getElementById('trash-count-badge');
   if (badge && trash.length) badge.textContent = String(trash.length);
 })();
