@@ -4245,10 +4245,10 @@ function calSelectDate(dstr) {
 
 // ── CALENDAR PREVIEW CARD ─────────────────────────────────────
 // Compact card, line by line:
-//   1) Date · Program · Persons
-//   2) Day · Customer Name
+//   1) Date · Party Name · Persons
+//   2) Day · Program
 //   3) Time Slot · Place
-//   4) Notes
+//   4) Note
 // Status is shown by the card's coloured left edge (and, in the mixed-status
 // day panel, a small icon beside the date).
 function calSlotShort(t) {
@@ -4295,27 +4295,27 @@ function buildCalEventCardHtml(e, showStatus) {
   const stIcon = { pending: '📝', confirmed: '📦', done: '🧾' }[st] || '';
   const slot = calSlotShort(e.pTime);
   const blank = '<div></div>';
-  // Row-major cells for a 3-column grid; every row always has 3 cells so
-  // nothing shifts when a value is missing.
+  // Row-major cells for a 3-column grid; every row always has 3 cells.
+  // Line 1: Date · Party Name · Persons
+  // Line 2: Day · Program
+  // Line 3: Time Slot · Place
+  const partyName = '<span onclick="event.stopPropagation(); goCustomerFromEstId(' + e.id + ')" style="cursor:pointer;text-decoration:underline dotted">' + esc(e.cName || 'Unknown') + '</span>';
   const cells = [
-    // Line 1: Date · Program · Persons
     '<div class="cg-date">' + esc(fmtDMY(e.pDate)) + (showStatus ? ' ' + stIcon : '') + '</div>',
-    '<div>' + esc(e.pType || '') + '</div>',
+    '<div class="cg-cust">' + partyName + '</div>',
     '<div>' + (e.pPers ? '👥 ' + esc(e.pPers) : '') + '</div>',
-    // Line 2: Day · Customer Name
     '<div>' + esc(calDayLabel(e)) + '</div>',
-    '<div class="cg-cust"><span onclick="event.stopPropagation(); goCustomerFromEstId(' + e.id + ')" style="cursor:pointer;text-decoration:underline dotted">' + esc(e.cName || 'Unknown') + '</span></div>',
+    '<div>' + esc(e.pType || '') + '</div>',
+    blank,
+    '<div>' + esc(slot) + '</div>',
+    '<div>' + (e.pPlace ? '📍 ' + esc(e.pPlace) : '') + '</div>',
     blank
   ];
-  // Line 3: Time Slot · Place (skipped entirely if both are empty)
-  if (slot || e.pPlace) {
-    cells.push('<div>' + esc(slot) + '</div>', '<div>' + (e.pPlace ? '📍 ' + esc(e.pPlace) : '') + '</div>', blank);
-  }
-  // Line 4: Notes (full width, only if present)
+  // Line 4: Note (full width, only when supplied).
   const notes = (e.pNotes || '').trim();
   return '<div class="cal-event-card cal-compact st-' + st + ' ' + progClass + '" onclick="loadEst(' + e.id + ')">' +
     '<div class="cev-grid3">' + cells.join('') + '</div>' +
-    (notes ? '<div class="cev-notes">🗒️ ' + esc(notes) + '</div>' : '') +
+    (notes ? '<div class="cev-notes">🗒️ <strong>Note:</strong> ' + esc(notes) + '</div>' : '') +
   '</div>';
 }
 
