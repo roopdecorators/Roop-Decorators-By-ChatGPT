@@ -214,65 +214,59 @@ body { font-family: 'Nunito', sans-serif; background: var(--cr); color: var(--tx
 .eic { font-size: 2.8rem; margin-bottom: 8px; }
 
 /* ── DASHBOARD ─────────────────────────────────────────── */
-.dash-hi { font-size: 0.78rem; color: var(--tm); margin-bottom: 12px; }
-.dash-hi strong { color: var(--m); }
-.sec-title { font-size: 0.72rem; font-weight: 800; color: var(--m); text-transform: uppercase; letter-spacing: 0.6px; margin: 18px 0 8px; display: flex; align-items: center; justify-content: space-between; }
-.sec-title .sec-more { font-size: 0.68rem; font-weight: 700; color: var(--g); text-transform: none; letter-spacing: 0; cursor: pointer; }
-
-.qa-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-.qa-btn { background: #fff; border: none; border-radius: 12px; box-shadow: var(--sh); padding: 12px 4px 9px; display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; font-family: 'Nunito', sans-serif; }
-.qa-btn:active { transform: scale(0.96); }
-.qa-ic { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.05rem; background: linear-gradient(135deg, var(--m), var(--ml)); color: #fff; }
-.qa-btn.qa-gold .qa-ic { background: linear-gradient(135deg, var(--g), var(--gl)); color: var(--md); }
-.qa-lbl { font-size: 0.62rem; font-weight: 700; color: var(--tx); text-align: center; line-height: 1.15; }
-
-.dcard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
-.dcard { background: #fff; border-radius: 12px; box-shadow: var(--sh); padding: 12px; border-left: 4px solid var(--g); cursor: pointer; }
-.dcard.dc-m { border-left-color: var(--m); }
-.dcard.dc-g { border-left-color: var(--g); }
-.dcard.dc-ok { border-left-color: var(--ok-done); }
-.dcard.dc-warn { border-left-color: var(--ok-pending); }
-.dc-ic { font-size: 1rem; margin-bottom: 4px; }
-.dc-val { font-size: 1.05rem; font-weight: 800; color: var(--m); line-height: 1.2; word-break: break-word; }
-.dc-lbl { font-size: 0.62rem; color: var(--tm); text-transform: uppercase; letter-spacing: 0.3px; margin-top: 2px; }
-
-.today-card { background: linear-gradient(135deg, var(--md), var(--m)); border-radius: var(--r); padding: 14px; color: #fff; }
-.today-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px; }
-.today-stat { text-align: center; }
-.today-num { font-size: 1.15rem; font-weight: 800; color: var(--gl); }
-.today-lbl { font-size: 0.6rem; opacity: 0.85; text-transform: uppercase; letter-spacing: 0.3px; margin-top: 2px; }
-.today-progs { margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 9px; }
-.today-prog-row { display: flex; justify-content: space-between; font-size: 0.76rem; padding: 3px 0; gap: 8px; }
-.today-prog-row .tpn { font-weight: 700; }
-.today-prog-row .tps { opacity: 0.85; }
-
-.up-item { background: #fff; border-radius: 10px; box-shadow: var(--sh); padding: 10px 12px; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
-.up-date { flex-shrink: 0; width: 46px; text-align: center; background: var(--crd); border-radius: 8px; padding: 5px 2px; }
-.up-date .ud-day { font-size: 0.95rem; font-weight: 800; color: var(--m); line-height: 1; }
-.up-date .ud-mon { font-size: 0.6rem; color: var(--tm); text-transform: uppercase; }
-.up-info { flex: 1; min-width: 0; }
-.up-name { font-size: 0.82rem; font-weight: 800; color: var(--tx); }
-.up-meta { font-size: 0.68rem; color: var(--tm); margin-top: 1px; }
-.up-amt { text-align: right; flex-shrink: 0; }
-.up-amt .ua-net { font-size: 0.78rem; font-weight: 800; color: var(--g); }
-
-.pay-item { background: #fff; border-radius: 10px; box-shadow: var(--sh); padding: 10px 12px; margin-bottom: 8px; border-left: 4px solid #c0392b; }
-.pay-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
-.pay-name { font-weight: 800; color: var(--m); font-size: 0.85rem; }
-.pay-prog { font-size: 0.68rem; color: var(--tm); }
-.pay-amts { display: flex; gap: 12px; margin-top: 7px; font-size: 0.72rem; }
-.pay-amts b { display: block; font-size: 0.82rem; }
-.pay-due b { color: #c0392b; }
-.pay-paid b { color: var(--ok-done); }
-.pay-total b { color: var(--tx); }
-
-@media (min-width: 480px) {
-  .qa-grid { grid-template-columns: repeat(4, 1fr); }
-  .dcard-grid { grid-template-columns: repeat(3, 1fr); }
-}
-@media (min-width: 720px) {
-  .pg#pg-dashboard { max-width: 640px; margin: 0 auto; }
-}
+.pg#pg-dashboard { max-width: 760px; margin: 0 auto; padding-top: 12px; }
+.dash-hero { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:18px 18px; border-radius:16px; color:#fff; background:linear-gradient(125deg,#4A0A12 0%,#6B0F1A 65%,#9B1728 100%); box-shadow:0 7px 20px rgba(74,10,18,.2); position:relative; overflow:hidden; }
+.dash-hero:after { content:""; position:absolute; width:150px; height:150px; border:1px solid rgba(240,192,96,.22); border-radius:50%; right:34px; top:-92px; box-shadow:0 0 0 18px rgba(240,192,96,.05),0 0 0 38px rgba(240,192,96,.04); pointer-events:none; }
+.dash-hero-copy { position:relative; z-index:1; }
+.dash-kicker { color:var(--gl); font-size:.62rem; font-weight:900; letter-spacing:1.8px; }
+.dash-welcome { font-family:'Playfair Display',serif; font-size:1.42rem; font-weight:900; margin-top:3px; }
+.dash-date { font-size:.72rem; color:rgba(255,255,255,.78); margin-top:3px; }
+.dash-hero-add { position:relative; z-index:1; flex-shrink:0; width:44px; height:44px; border:0; border-radius:13px; color:var(--md); background:linear-gradient(135deg,var(--gl),#fff0c8); font-size:1.8rem; line-height:1; font-weight:700; box-shadow:0 3px 10px rgba(0,0,0,.16); cursor:pointer; }
+.dash-quick-title,.dash-section-head { display:flex; align-items:center; justify-content:space-between; gap:8px; margin:19px 1px 9px; color:var(--m); font-size:.76rem; font-weight:900; letter-spacing:.45px; text-transform:uppercase; }
+.dash-section-note { color:var(--tm); font-size:.63rem; font-weight:700; letter-spacing:0; text-transform:none; }
+.dash-link { border:0; background:transparent; color:var(--g); font-family:'Nunito',sans-serif; font-size:.68rem; font-weight:900; text-transform:none; letter-spacing:0; cursor:pointer; white-space:nowrap; }
+.dash-qa-grid { grid-template-columns:repeat(5,minmax(0,1fr)); gap:7px; }
+.qa-btn { min-width:0; padding:10px 2px 9px; border:1px solid rgba(107,15,26,.06); }
+.qa-ic { width:35px; height:35px; font-size:1.05rem; }
+.qa-lbl { font-size:.61rem; }
+.dash-metrics { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; }
+.dash-metric { min-width:0; display:grid; grid-template-columns:34px 1fr; grid-template-rows:auto auto; align-items:center; column-gap:9px; text-align:left; padding:12px; border:1px solid rgba(107,15,26,.07); border-radius:13px; background:#fff; box-shadow:var(--sh); cursor:pointer; font-family:'Nunito',sans-serif; }
+.dash-metric:active { transform:scale(.985); }
+.metric-icon { grid-row:1 / span 2; width:34px; height:34px; display:flex; align-items:center; justify-content:center; border-radius:10px; background:#f7e9e9; font-size:1rem; }
+.metric-value { min-width:0; font-size:1.08rem; line-height:1.2; font-weight:900; color:var(--m); overflow-wrap:anywhere; }
+.metric-label { color:var(--tm); font-size:.63rem; font-weight:800; margin-top:2px; }
+.metric-gold .metric-icon { background:#fff3d6; }.metric-green .metric-icon { background:#e7f4eb; }.metric-red .metric-icon { background:#fce9e7; }
+.metric-green .metric-value { color:#287348; }.metric-red .metric-value { color:#bd3434; }
+.dash-finance-strip { display:grid; grid-template-columns:1fr 1px 1fr 1px 1fr; align-items:center; gap:9px; margin-top:10px; padding:12px 11px; border-radius:12px; background:#fff; box-shadow:var(--sh); }
+.dash-finance-strip > div:not(.finance-divider) { min-width:0; display:flex; flex-direction:column; gap:3px; }
+.finance-label { color:var(--tm); font-size:.58rem; line-height:1.2; font-weight:800; }
+.dash-finance-strip strong { color:var(--m); font-size:.88rem; overflow-wrap:anywhere; }
+.finance-divider { height:30px; background:#eadfce; }
+.dash-today-card { border-radius:15px; padding:13px; color:#fff; background:linear-gradient(135deg,#4A0A12,#781522); box-shadow:0 5px 15px rgba(74,10,18,.16); }
+.dash-today-stats { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; }
+.dash-today-stats > div { min-width:0; display:flex; flex-direction:column; align-items:center; gap:2px; text-align:center; }
+.dash-today-stats strong { color:var(--gl); font-size:1.05rem; font-weight:900; overflow-wrap:anywhere; }
+.dash-today-stats span { color:rgba(255,255,255,.8); font-size:.58rem; font-weight:700; }
+.dash-today-list { border-top:1px solid rgba(255,255,255,.2); margin-top:10px; padding-top:7px; }
+.dash-today-row { display:flex; justify-content:space-between; align-items:center; gap:8px; padding:6px 1px; color:#fff; font-size:.72rem; cursor:pointer; }
+.dash-today-row + .dash-today-row { border-top:1px solid rgba(255,255,255,.1); }
+.dash-today-row strong { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.dash-today-row span { flex-shrink:0; color:rgba(255,255,255,.78); font-size:.66rem; }
+.dash-list { min-width:0; }
+.up-item { background:#fff; border-radius:12px; box-shadow:var(--sh); padding:10px 11px; margin-bottom:8px; display:flex; align-items:center; gap:10px; cursor:pointer; border:1px solid rgba(107,15,26,.05); }
+.up-date { flex-shrink:0; width:46px; text-align:center; background:var(--crd); border-radius:9px; padding:6px 2px; }
+.up-date .ud-day { font-size:1rem; font-weight:900; color:var(--m); line-height:1; }.up-date .ud-mon { font-size:.6rem; color:var(--tm); text-transform:uppercase; font-weight:800; }
+.up-info { flex:1; min-width:0; }.up-name { font-size:.8rem; font-weight:900; color:var(--tx); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }.up-meta { font-size:.66rem; color:var(--tm); margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.up-amt { text-align:right; flex-shrink:0; }.up-amt .ua-net { font-size:.76rem; font-weight:900; color:var(--g); }.up-status { font-size:.57rem; font-weight:900; color:var(--tm); margin-top:2px; text-transform:uppercase; }
+.pay-item { background:#fff; border-radius:11px; box-shadow:var(--sh); padding:10px 11px; margin-bottom:8px; border-left:4px solid #c0392b; }
+.pay-top { display:flex; justify-content:space-between; align-items:baseline; gap:8px; }.pay-name { font-weight:900; color:var(--m); font-size:.82rem; }.pay-prog { font-size:.64rem; color:var(--tm); text-align:right; }.pay-amts { display:flex; flex-wrap:wrap; gap:10px; margin-top:7px; font-size:.68rem; }.pay-amts b { display:block; font-size:.78rem; }.pay-due b { color:#c0392b; }.pay-paid b { color:#287348; }.pay-total b { color:var(--tx); }
+.dash-recent-item { display:flex; align-items:center; gap:9px; padding:10px 11px; margin-bottom:7px; background:#fff; border-radius:11px; box-shadow:var(--sh); cursor:pointer; }
+.dash-recent-icon { flex-shrink:0; width:34px; height:34px; display:flex; align-items:center; justify-content:center; border-radius:10px; background:var(--crd); font-size:1rem; }
+.dash-recent-info { min-width:0; flex:1; }.dash-recent-name { font-size:.77rem; font-weight:900; color:var(--tx); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }.dash-recent-meta { font-size:.63rem; color:var(--tm); margin-top:2px; }
+.dash-status { flex-shrink:0; padding:3px 7px; border-radius:20px; font-size:.56rem; font-weight:900; text-transform:uppercase; background:#f4ead6; color:#896000; }.dash-status.confirmed { background:#e6f0fa; color:#245f91; }.dash-status.done { background:#e5f3e9; color:#287348; }
+.dash-empty { text-align:center; background:#fff; border:1px dashed #e4d4bd; border-radius:11px; padding:17px 10px; margin-bottom:8px; color:var(--tm); font-size:.72rem; font-weight:700; }
+@media (min-width:480px) { .dash-metrics { grid-template-columns:repeat(4,minmax(0,1fr)); }.dash-qa-grid { gap:9px; }.qa-lbl { font-size:.65rem; } }
+@media (max-width:360px) { .dash-qa-grid { grid-template-columns:repeat(5,minmax(0,1fr)); gap:4px; }.qa-lbl { font-size:.55rem; }.qa-ic { width:31px; height:31px; }.dash-finance-strip { gap:5px; padding:10px 7px; }.finance-label { font-size:.54rem; }.dash-finance-strip strong { font-size:.75rem; }.dash-today-stats span { font-size:.53rem; } }
 
 /* ── PAYMENT MANAGEMENT ───────────────────────────────────── */
 .pmt-item { background: var(--cr); border-radius: 10px; padding: 9px 11px; margin-bottom: 7px; border-left: 3px solid var(--g); }
@@ -429,68 +423,67 @@ body { font-family: 'Nunito', sans-serif; background: var(--cr); color: var(--tx
 
 <!-- HOME DASHBOARD -->
 <div class="pg on" id="pg-dashboard">
+  <section class="dash-hero">
+    <div class="dash-hero-copy">
+      <div class="dash-kicker">ROOP DECORATORS</div>
+      <div class="dash-welcome">Welcome back!</div>
+      <div class="dash-date" id="dash-today-date">Your business at a glance</div>
+    </div>
+    <button class="dash-hero-add" type="button" onclick="showPg('pg-new')" aria-label="Create new estimate">＋</button>
+  </section>
 
-  <div class="dash-hi">Welcome back — here's how <strong>Roop Decorators</strong> is doing.</div>
-
-  <div class="sec-title">Quick Actions</div>
-  <div class="qa-grid">
-    <button class="qa-btn qa-gold" onclick="showPg('pg-new')"><span class="qa-ic">➕</span><span class="qa-lbl">New Estimate</span></button>
-    <button class="qa-btn" onclick="goBookings('all')"><span class="qa-ic">📋</span><span class="qa-lbl">Bookings</span></button>
-    <button class="qa-btn" onclick="showPg('pg-customers')"><span class="qa-ic">👥</span><span class="qa-lbl">Customers</span></button>
-    <button class="qa-btn" onclick="showPg('pg-payments')"><span class="qa-ic">💰</span><span class="qa-lbl">Payments</span></button>
+  <div class="dash-quick-title">Quick actions</div>
+  <div class="qa-grid dash-qa-grid">
+    <button class="qa-btn qa-gold" type="button" onclick="showPg('pg-new')"><span class="qa-ic">＋</span><span class="qa-lbl">New Estimate</span></button>
+    <button class="qa-btn" type="button" onclick="showPg('pg-calendar')"><span class="qa-ic">📅</span><span class="qa-lbl">Calendar</span></button>
+    <button class="qa-btn" type="button" onclick="goBookings('all')"><span class="qa-ic">📋</span><span class="qa-lbl">All Bookings</span></button>
+    <button class="qa-btn" type="button" onclick="showPg('pg-customers')"><span class="qa-ic">👥</span><span class="qa-lbl">Customers</span></button>
+    <button class="qa-btn" type="button" onclick="showPg('pg-payments')"><span class="qa-ic">₹</span><span class="qa-lbl">Payments</span></button>
   </div>
 
-  <div class="sec-title">Overview</div>
-  <div class="dcard-grid">
-    <div class="dcard dc-m" onclick="goBookings('all')">
-      <div class="dc-ic">📄</div>
-      <div class="dc-val" id="dc-total-est">0</div>
-      <div class="dc-lbl">Total Estimates</div>
-    </div>
-    <div class="dcard" onclick="goBookings('confirmed')">
-      <div class="dc-ic">📦</div>
-      <div class="dc-val" id="dc-confirmed">0</div>
-      <div class="dc-lbl">Orders</div>
-    </div>
-    <div class="dcard dc-ok" onclick="goBookings('done')">
-      <div class="dc-ic">🧾</div>
-      <div class="dc-val" id="dc-done">0</div>
-      <div class="dc-lbl">Invoices</div>
-    </div>
-    <div class="dcard dc-g" onclick="goBookings('all')">
-      <div class="dc-ic">💵</div>
-      <div class="dc-val" id="dc-amount">₹0</div>
-      <div class="dc-lbl">Total Booking Amount</div>
-    </div>
-    <div class="dcard dc-ok" onclick="showPg('pg-payments')">
-      <div class="dc-ic">✅</div>
-      <div class="dc-val" id="dc-received">₹0</div>
-      <div class="dc-lbl">Total Received</div>
-    </div>
-    <div class="dcard dc-warn" onclick="showPg('pg-payments')">
-      <div class="dc-ic">⚠️</div>
-      <div class="dc-val" id="dc-due">₹0</div>
-      <div class="dc-lbl">Total Due</div>
-    </div>
+  <div class="dash-section-head"><span>Business overview</span><span class="dash-section-note">All active records</span></div>
+  <div class="dash-metrics">
+    <button class="dash-metric metric-maroon" type="button" onclick="goBookings('confirmed')">
+      <span class="metric-icon">📦</span><span class="metric-value" id="dc-confirmed">0</span><span class="metric-label">Active Orders</span>
+    </button>
+    <button class="dash-metric metric-gold" type="button" onclick="goBookings('pending')">
+      <span class="metric-icon">📝</span><span class="metric-value" id="dc-total-est">0</span><span class="metric-label">Pending Estimates</span>
+    </button>
+    <button class="dash-metric metric-red" type="button" onclick="showPg('pg-payments')">
+      <span class="metric-icon">⚠️</span><span class="metric-value" id="dc-due">₹0</span><span class="metric-label">Outstanding Due</span>
+    </button>
+    <button class="dash-metric metric-green" type="button" onclick="showPg('pg-customers')">
+      <span class="metric-icon">👥</span><span class="metric-value" id="dc-customers">0</span><span class="metric-label">Customers</span>
+    </button>
   </div>
 
-  <div class="sec-title">Today</div>
-  <div class="today-card">
-    <div class="today-grid">
-      <div class="today-stat"><div class="today-num" id="td-progs">0</div><div class="today-lbl">Programs Today</div></div>
-      <div class="today-stat"><div class="today-num" id="td-confirmed">0</div><div class="today-lbl">Orders</div></div>
-      <div class="today-stat"><div class="today-num" id="td-pending">0</div><div class="today-lbl">Estimates</div></div>
-      <div class="today-stat"><div class="today-num" id="td-collection">₹0</div><div class="today-lbl">Expected Collection</div></div>
-    </div>
-    <div class="today-progs" id="td-list"></div>
+  <div class="dash-finance-strip">
+    <div><span class="finance-label">Confirmed booking value</span><strong id="dc-amount">₹0</strong></div>
+    <div class="finance-divider"></div>
+    <div><span class="finance-label">Total received</span><strong id="dc-received">₹0</strong></div>
+    <div class="finance-divider"></div>
+    <div><span class="finance-label">Completed programs</span><strong id="dc-done">0</strong></div>
   </div>
 
-  <div class="sec-title">Upcoming Programs <span class="sec-more" onclick="goBookings('all')">View all →</span></div>
-  <div id="up-list"></div>
+  <div class="dash-section-head"><span>Today's schedule</span><span class="dash-section-note" id="today-date-label"></span></div>
+  <section class="dash-today-card">
+    <div class="dash-today-stats">
+      <div><strong id="td-progs">0</strong><span>Programs</span></div>
+      <div><strong id="td-confirmed">0</strong><span>Confirmed</span></div>
+      <div><strong id="td-pending">0</strong><span>Estimates</span></div>
+      <div><strong id="td-collection">₹0</strong><span>Due balance</span></div>
+    </div>
+    <div class="dash-today-list" id="td-list"></div>
+  </section>
 
-  <div class="sec-title">Payment Alerts <span class="sec-more" onclick="showPg('pg-payments')">View all →</span></div>
-  <div id="pay-alert-list"></div>
+  <div class="dash-section-head"><span>Upcoming programs</span><button class="dash-link" type="button" onclick="showPg('pg-calendar')">Open calendar →</button></div>
+  <div id="up-list" class="dash-list"></div>
 
+  <div class="dash-section-head"><span>Payment reminders</span><button class="dash-link" type="button" onclick="showPg('pg-payments')">View payments →</button></div>
+  <div id="pay-alert-list" class="dash-list"></div>
+
+  <div class="dash-section-head"><span>Recent estimates & bookings</span><button class="dash-link" type="button" onclick="goBookings('all')">View all →</button></div>
+  <div id="dash-recent-list" class="dash-list"></div>
 </div>
 
 <!-- NEW ESTIMATE -->
@@ -3555,87 +3548,92 @@ function fmtDMY(dstr) {
 }
 
 // ── DASHBOARD ──────────────────────────────────────────────
+function dashboardMoney(value) {
+  const n = Number(value) || 0;
+  return '₹' + n.toLocaleString('en-IN', { maximumFractionDigits: 2 });
+}
+
+function dashboardStatusLabel(status) {
+  const s = status || 'pending';
+  return s === 'confirmed' ? 'Order' : (s === 'done' ? 'Completed' : 'Estimate');
+}
+
 function renderDashboard() {
-  const list = readStore('roop_ests', []);
+  const list = readStore('roop_ests', []).filter(e => e && typeof e === 'object');
+  const customers = readStore('roop_customers', []).filter(c => c && !c.archived);
   const today = todayStr();
-
-  const totalEstimates = list.length;
-  const confirmedCount = list.filter(e => (e.status || 'pending') === 'confirmed').length;
-  const doneCount = list.filter(e => (e.status || 'pending') === 'done').length;
-
-  // "Bookings" = confirmed + done estimates (i.e. not just a draft/pending estimate)
-  const bookings = list.filter(e => (e.status || 'pending') !== 'pending');
-  let bookingAmount = 0, received = 0, due = 0;
-  bookings.forEach(e => {
-    const amt = estAmounts(e);
+  const statusOf = e => e.status || 'pending';
+  const bookings = list.filter(e => statusOf(e) === 'confirmed' || statusOf(e) === 'done');
+  const confirmedCount = list.filter(e => statusOf(e) === 'confirmed').length;
+  const doneCount = list.filter(e => statusOf(e) === 'done').length;
+  const bookingAmount = bookings.reduce((sum, e) => sum + (Number(estAmounts(e).net) || 0), 0);
+  let received = 0, due = 0;
+  list.forEach(e => {
     const pay = paymentSummary(e.id);
-    bookingAmount += amt.net;
-    received += pay.paid;
-    due += pay.due;
+    received += Number(pay.paid) || 0;
+    // Pending estimates are not included in the dashboard's payable balance.
+    if (statusOf(e) !== 'pending') due += Number(pay.due) || 0;
   });
 
-  document.getElementById('dc-total-est').textContent = totalEstimates;
-  document.getElementById('dc-confirmed').textContent = confirmedCount;
-  document.getElementById('dc-done').textContent = doneCount;
-  document.getElementById('dc-amount').textContent = '₹' + bookingAmount.toLocaleString('en-IN');
-  document.getElementById('dc-received').textContent = '₹' + received.toLocaleString('en-IN');
-  document.getElementById('dc-due').textContent = '₹' + due.toLocaleString('en-IN');
+  const setText = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value; };
+  const todayDate = new Date(today + 'T00:00:00');
+  const dateText = isNaN(todayDate) ? today : todayDate.toLocaleDateString('en-IN', { weekday:'long', day:'2-digit', month:'long', year:'numeric' });
+  setText('dash-today-date', dateText);
+  setText('today-date-label', dateText);
+  setText('dc-total-est', list.filter(e => statusOf(e) === 'pending').length);
+  setText('dc-confirmed', confirmedCount);
+  setText('dc-done', doneCount);
+  setText('dc-amount', dashboardMoney(bookingAmount));
+  setText('dc-received', dashboardMoney(received));
+  setText('dc-due', dashboardMoney(due));
+  setText('dc-customers', customers.length);
 
-  // TODAY
-  const todaysProgs = list.filter(e => e.pDate === today);
-  const todayConfirmed = todaysProgs.filter(e => (e.status || 'pending') === 'confirmed').length;
-  const todayPending = todaysProgs.filter(e => (e.status || 'pending') === 'pending').length;
-  const todayCollection = todaysProgs.reduce((s, e) => s + paymentSummary(e.id).due, 0);
-
-  document.getElementById('td-progs').textContent = todaysProgs.length;
-  document.getElementById('td-confirmed').textContent = todayConfirmed;
-  document.getElementById('td-pending').textContent = todayPending;
-  document.getElementById('td-collection').textContent = '₹' + todayCollection.toLocaleString('en-IN');
-
+  // Today's schedule — counts and list are based on program dates, not estimate creation dates.
+  const todaysProgs = list.filter(e => e.pDate === today).sort((a,b) => String(a.pTime || '').localeCompare(String(b.pTime || '')));
+  const todayConfirmed = todaysProgs.filter(e => statusOf(e) === 'confirmed' || statusOf(e) === 'done').length;
+  const todayPending = todaysProgs.filter(e => statusOf(e) === 'pending').length;
+  const todayDue = todaysProgs.reduce((sum, e) => sum + (statusOf(e) === 'pending' ? 0 : (Number(paymentSummary(e.id).due) || 0)), 0);
+  setText('td-progs', todaysProgs.length);
+  setText('td-confirmed', todayConfirmed);
+  setText('td-pending', todayPending);
+  setText('td-collection', dashboardMoney(todayDue));
   const tdList = document.getElementById('td-list');
-  if (!todaysProgs.length) {
-    tdList.innerHTML = '<div class="today-prog-row"><span class="tps">આજે કોઈ પ્રોગ્રામ નથી</span></div>';
-  } else {
-    tdList.innerHTML = todaysProgs.map(e =>
-      '<div class="today-prog-row"><span class="tpn">' + esc(e.cName) + '</span><span class="tps">' + esc(e.pType || 'Program') + '</span></div>'
-    ).join('');
-  }
+  if (tdList) tdList.innerHTML = todaysProgs.length ? todaysProgs.map(e =>
+    '<div class="dash-today-row" role="button" tabindex="0" onclick="loadEst(' + Number(e.id) + ')"><strong>' + esc(e.cName || 'Customer') + '</strong><span>' + esc(e.pTime || e.pType || 'Program') + (e.pTime && e.pType ? ' · ' + esc(e.pType) : '') + '</span></div>'
+  ).join('') : '<div class="dash-today-row" style="cursor:default"><strong>No programs scheduled today</strong><span>Enjoy the day!</span></div>';
 
-  // UPCOMING (next 5, strictly after today, not yet done)
-  const upcoming = list
-    .filter(e => e.pDate && e.pDate > today && (e.status || 'pending') !== 'done')
-    .sort((a, b) => a.pDate < b.pDate ? -1 : (a.pDate > b.pDate ? 1 : 0))
-    .slice(0, 5);
-
+  // Upcoming program cards, ordered by date and then time.
+  const upcoming = list.filter(e => e.pDate && e.pDate > today && statusOf(e) !== 'done')
+    .sort((a,b) => a.pDate.localeCompare(b.pDate) || String(a.pTime || '').localeCompare(String(b.pTime || ''))).slice(0,5);
   const upList = document.getElementById('up-list');
-  if (!upcoming.length) {
-    upList.innerHTML = '<div class="emp"><div class="eic">🗓️</div><div>કોઈ upcoming program નથી</div></div>';
-  } else {
-    upList.innerHTML = upcoming.map(e => {
-      const dt = fmtDateShort(e.pDate);
-      const a = estAmounts(e);
-      return '<div class="up-item" onclick="loadEst(' + e.id + ')">' +
-        '<div class="up-date"><div class="ud-day">' + dt.d + '</div><div class="ud-mon">' + dt.m + '</div></div>' +
-        '<div class="up-info"><div class="up-name">' + esc(e.cName) + '</div>' +
-        '<div class="up-meta">' + esc(e.pType || 'Program') + (e.pPlace ? ' · ' + esc(e.pPlace) : '') + '</div></div>' +
-        '<div class="up-amt"><div class="ua-net">₹' + a.net.toLocaleString('en-IN') + '</div></div>' +
-      '</div>';
-    }).join('');
-  }
+  if (upList) upList.innerHTML = upcoming.length ? upcoming.map(e => {
+    const dt = fmtDateShort(e.pDate);
+    const amount = estAmounts(e).net;
+    return '<div class="up-item" role="button" tabindex="0" onclick="loadEst(' + Number(e.id) + ')">' +
+      '<div class="up-date"><div class="ud-day">' + esc(dt.d) + '</div><div class="ud-mon">' + esc(dt.m) + '</div></div>' +
+      '<div class="up-info"><div class="up-name">' + esc(e.cName || 'Customer') + '</div><div class="up-meta">' + esc(e.pType || 'Program') + (e.pTime ? ' · ' + esc(e.pTime) : '') + (e.pPlace ? ' · ' + esc(e.pPlace) : '') + '</div></div>' +
+      '<div class="up-amt"><div class="ua-net">' + dashboardMoney(amount) + '</div><div class="up-status">' + esc(dashboardStatusLabel(statusOf(e))) + '</div></div></div>';
+  }).join('') : '<div class="dash-empty">🗓️ No upcoming programs scheduled.</div>';
 
-  // PAYMENT ALERTS (customers with outstanding due, top 5 by due amount)
-  const dueList = list
-    .map(e => Object.assign({ _pay: paymentSummary(e.id) }, e))
-    .filter(e => e._pay.due > 0)
-    .sort((a, b) => b._pay.due - a._pay.due)
-    .slice(0, 5);
-
+  // Payment reminders show confirmed/completed bookings only, ranked by highest outstanding balance.
+  const dueList = list.map(e => Object.assign({ _pay: paymentSummary(e.id) }, e))
+    .filter(e => statusOf(e) !== 'pending' && e._pay.due > 0)
+    .sort((a,b) => b._pay.due - a._pay.due).slice(0,5);
   const payList = document.getElementById('pay-alert-list');
-  if (!dueList.length) {
-    payList.innerHTML = '<div class="emp"><div class="eic">✅</div><div>કોઈ payment બાકી નથી</div></div>';
-  } else {
-    payList.innerHTML = dueList.map(e => buildPayItemHtml(e)).join('');
-  }
+  if (payList) payList.innerHTML = dueList.length ? dueList.map(e => buildPayItemHtml(e)).join('') : '<div class="dash-empty">✅ No outstanding payments on confirmed bookings.</div>';
+
+  // The app inserts new estimates at the top of roop_ests, so preserve that order for recent activity.
+  const recent = list.slice(0,5);
+  const recentList = document.getElementById('dash-recent-list');
+  if (recentList) recentList.innerHTML = recent.length ? recent.map(e => {
+    const status = statusOf(e);
+    const date = e.pDate ? fmtDMY(e.pDate) : 'Date not set';
+    const icon = status === 'done' ? '🧾' : (status === 'confirmed' ? '📦' : '📝');
+    return '<div class="dash-recent-item" role="button" tabindex="0" onclick="loadEst(' + Number(e.id) + ')">' +
+      '<div class="dash-recent-icon">' + icon + '</div><div class="dash-recent-info"><div class="dash-recent-name">' + esc(e.cName || 'Customer') + '</div>' +
+      '<div class="dash-recent-meta">' + esc(e.estNo || 'Estimate') + ' · ' + esc(e.pType || 'Program') + ' · ' + esc(date) + '</div></div>' +
+      '<span class="dash-status ' + (status === 'confirmed' ? 'confirmed' : (status === 'done' ? 'done' : '')) + '">' + esc(dashboardStatusLabel(status)) + '</span></div>';
+  }).join('') : '<div class="dash-empty">No estimates yet. Create your first estimate to get started.</div>';
 }
 
 // ── CUSTOMER MANAGEMENT ──────────────────────────────────────
@@ -4299,13 +4297,13 @@ function buildCalEventCardHtml(e, showStatus) {
   // Line 1: Date · Party Name · Persons
   // Line 2: Day · Program
   // Line 3: Time Slot · Place
-  const partyName = '<span onclick="event.stopPropagation(); goCustomerFromEstId(' + e.id + ')" style="cursor:pointer;text-decoration:underline dotted">' + esc(e.cName || 'Unknown') + '</span>';
+  const partyName = '👤 <span onclick="event.stopPropagation(); goCustomerFromEstId(' + e.id + ')" style="cursor:pointer;text-decoration:underline dotted">' + esc(e.cName || 'Unknown') + '</span>';
   const cells = [
     '<div class="cg-date">' + esc(fmtDMY(e.pDate)) + (showStatus ? ' ' + stIcon : '') + '</div>',
     '<div class="cg-cust">' + partyName + '</div>',
     '<div>' + (e.pPers ? '👥 ' + esc(e.pPers) : '') + '</div>',
     '<div>' + esc(calDayLabel(e)) + '</div>',
-    '<div>' + esc(e.pType || '') + '</div>',
+    '<div>' + (e.pType ? '🎉 ' + esc(e.pType) : '') + '</div>',
     blank,
     '<div>' + esc(slot) + '</div>',
     '<div>' + (e.pPlace ? '📍 ' + esc(e.pPlace) : '') + '</div>',
@@ -4431,19 +4429,39 @@ function downloadOrdersPDF() {
 
   const escPdf = v => esc(String(v == null ? '' : v));
   let previousDate = '';
-  const rows = orders.map((e, i) => {
+  const cards = orders.map((e, i) => {
     const dateBreak = sortBy === 'date' && e.pDate !== previousDate;
     previousDate = e.pDate || '';
-    return (dateBreak ? '<tr class="date-separator"><td colspan="7">' + escPdf(ordersPdfDateLabel(e.pDate)) + '</td></tr>' : '') +
-      '<tr><td>' + (i + 1) + '</td><td>' + escPdf(e.estNo || '') + '</td><td>' + escPdf(e.cName || '') + '</td><td>' + escPdf(e.cMob || '') + '</td><td>' + escPdf(e.pType || '') + '</td><td>' + escPdf(e.pPlace || '') + '</td><td>' + escPdf(e.pTime || '') + '</td></tr>';
+    const day = calDayLabel(e);
+    const slot = calSlotShort(e.pTime);
+    const programClass = calProgramColourClass(e.pType);
+    const dateSeparator = dateBreak
+      ? '<div class="date-separator"><span>' + escPdf(ordersPdfDateLabel(e.pDate)) + '</span></div>' : '';
+    return dateSeparator +
+      '<section class="order-card ' + programClass + '">' +
+        '<div class="order-line line-one"><span class="order-date">' + escPdf(ordersPdfDateLabel(e.pDate)) + '</span>' +
+          '<span class="order-program">🎉 ' + escPdf(e.pType || 'Program') + '</span>' +
+          (e.pPers ? '<span class="order-persons">👥 ' + escPdf(e.pPers) + '</span>' : '') + '</div>' +
+        '<div class="order-line line-two"><span class="order-day">' + escPdf(day) + '</span>' +
+          '<span class="order-party">👤 ' + escPdf(e.cName || 'Unknown') + '</span></div>' +
+        '<div class="order-line line-three">' +
+          (slot ? '<span class="order-time">' + escPdf(slot) + '</span>' : '<span></span>') +
+          '<span class="order-place">📍 ' + escPdf(e.pPlace || '—') + '</span></div>' +
+        ((e.pNotes || '').trim() ? '<div class="order-note">🗒️ <b>Note:</b> ' + escPdf(e.pNotes.trim()) + '</div>' : '') +
+      '</section>';
   }).join('');
-  const fileTitle = 'Orders ' + from.split('-').reverse().map((v,i) => i === 2 ? v.slice(-2) : v).join('-') + ' To ' + to.split('-').reverse().map((v,i) => i === 2 ? v.slice(-2) : v).join('-');
+
+  const fmtFileDate = d => d.split('-').reverse().map((v,i) => i === 2 ? v.slice(-2) : v).join('-');
+  const fileTitle = 'Orders ' + fmtFileDate(from) + ' To ' + fmtFileDate(to);
   const w = window.open('', '_blank');
   if (!w) { showToast('Please allow pop-ups to create the PDF'); return; }
   w.document.open();
-  w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>' + escPdf(fileTitle) + '</title><style>' +
-    '@page{size:A4 portrait;margin:14mm}*{box-sizing:border-box}body{font-family:Arial,sans-serif;color:#222;font-size:10px}h1{font-size:19px;margin:0 0 5px;color:#6B0F1A} .sub{font-size:10px;color:#555;margin-bottom:14px}.meta{margin-bottom:10px;font-size:10px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #bbb;padding:7px 5px;text-align:left;vertical-align:top}th{background:#6B0F1A;color:#fff;font-size:9px}.date-separator td{background:#f0e5d7;color:#6B0F1A;font-weight:bold;border-top:2px solid #6B0F1A;padding:6px}.footer{margin-top:12px;font-size:9px;color:#666}@media print{button{display:none}}' +
-    '</style></head><body><h1>Roop Decorators</h1><div class="sub">Decorating things with heart</div><div class="meta"><b>Orders:</b> ' + escPdf(ordersPdfDateLabel(from)) + ' to ' + escPdf(ordersPdfDateLabel(to)) + ' &nbsp; | &nbsp; <b>Sorted by:</b> ' + (sortBy === 'name' ? 'Customer Name' : 'Date') + ' &nbsp; | &nbsp; <b>Total Orders:</b> ' + orders.length + '</div><table><thead><tr><th>No.</th><th>Order No.</th><th>Customer Name</th><th>Mobile</th><th>Program</th><th>Place</th><th>Time</th></tr></thead><tbody>' + rows + '</tbody></table><div class="footer">Generated from Roop Decorators Estimate Maker</div><script>window.onload=function(){setTimeout(function(){window.print()},300)};<\/script></body></html>');
+  w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' + escPdf(fileTitle) + '</title><style>' +
+    '@page{size:A4 portrait;margin:12mm 13mm}*{box-sizing:border-box}body{font-family:Arial,"Noto Sans Gujarati",sans-serif;color:#211b16;margin:0;font-size:11pt;background:#fff}.pdf-header{background:#6b0f1a;color:#f7d889;text-align:center;padding:13px 12px 11px;border-bottom:5px solid #d7ae56;margin-bottom:13px}.brand{font-size:20pt;font-weight:900;letter-spacing:.2px}.tagline{font-size:9pt;color:#f5d9c9;margin-top:3px;letter-spacing:1px}.pdf-meta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:9pt;color:#514238;margin:0 2px 12px}.date-separator{display:flex;align-items:center;gap:10px;margin:13px 2px 8px;font-size:14pt;font-weight:900;color:#29211a;break-after:avoid-page;page-break-after:avoid}.date-separator:before,.date-separator:after{content:"";height:2px;background:#806a55;flex:1}.date-separator span{white-space:nowrap}.order-card{border-radius:13px;border-left:5px solid #806a55;padding:13px 15px;margin:0 0 10px;background:#f7f1e9;break-inside:avoid;page-break-inside:avoid;font-weight:800;color:#211b16}.order-card.prog-nikah{background:#ffe2e2;border-left-color:#c62828}.order-card.prog-valima{background:#e1efff;border-left-color:#1976d2}.order-card.prog-haldi{background:#fff6c9;border-left-color:#e4b900}.order-card.prog-engagement{background:#fff0c2;border-left-color:#c18a00}.order-card.prog-akikah{background:#e5e5e5;border-left-color:#222}.order-card.prog-gyarvi{background:#e5f2d8;border-left-color:#78a84b}.order-card.prog-upghatan{background:#ffe6cc;border-left-color:#ed7d18}.order-card.prog-birthday{background:#ffe3ef;border-left-color:#e66a9b}.order-line{display:grid;align-items:center;column-gap:10px;line-height:1.35}.line-one{grid-template-columns:max-content minmax(0,1fr) max-content;font-size:12pt;margin-bottom:7px}.line-two{grid-template-columns:110px minmax(0,1fr);font-size:11.5pt;margin-bottom:6px}.line-three{grid-template-columns:110px minmax(0,1fr);font-size:11.5pt}.order-date,.order-program,.order-party{font-weight:900}.order-program,.order-party,.order-place{overflow-wrap:anywhere}.order-persons{white-space:nowrap;font-size:12pt}.order-day,.order-time{white-space:nowrap}.order-note{border-top:1px dashed rgba(80,55,35,.35);margin-top:8px;padding-top:7px;font-size:10pt;line-height:1.4;overflow-wrap:anywhere}.pdf-footer{font-size:8pt;color:#76695e;text-align:center;margin-top:13px;padding-top:7px;border-top:1px solid #ddd}@media(max-width:520px){body{font-size:10pt}.order-card{padding:10px 11px}.line-one{font-size:10pt;column-gap:6px}.line-two,.line-three{font-size:10pt;grid-template-columns:85px minmax(0,1fr);column-gap:7px}.brand{font-size:17pt}}@media print{.order-card{print-color-adjust:exact;-webkit-print-color-adjust:exact}.pdf-header{print-color-adjust:exact;-webkit-print-color-adjust:exact}}' +
+    '</style></head><body><header class="pdf-header"><div class="brand">🌸 Roop Decorators</div><div class="tagline">✦ Decorating Things With Heart ✦</div></header>' +
+    '<div class="pdf-meta"><span><b>ORDERS</b> — ' + escPdf(ordersPdfDateLabel(from)) + ' to ' + escPdf(ordersPdfDateLabel(to)) + '</span><span><b>Total Orders:</b> ' + orders.length + ' &nbsp; | &nbsp; <b>Arranged by:</b> ' + (sortBy === 'name' ? 'Customer Name' : 'Date') + '</span></div>' +
+    '<main>' + cards + '</main><div class="pdf-footer">Roop Decorators · Decorating Things With Heart</div>' +
+    '<script>window.onload=function(){setTimeout(function(){window.print()},350)};<\/script></body></html>');
   w.document.close();
 }
 

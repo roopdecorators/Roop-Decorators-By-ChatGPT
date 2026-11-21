@@ -1,5 +1,5 @@
 const CACHE_PREFIX = 'roop-decorators-';
-const CACHE_NAME = 'roop-decorators-v26';
+const CACHE_NAME = 'roop-decorators-v29';
 const APP_SHELL = [
   './',
   './index.html',
